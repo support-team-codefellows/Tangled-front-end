@@ -1,37 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+import React from 'react';
+import Header from './components/Navbars/Navbar.js';
+import Footer from './components/Footer/Footer.js';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
-import Telephone from './components/Telephone';
 
+class App extends React.Component {
 
-// import './App.css';
+  render() {
 
-function App() {
-  const [socket, setSocket] = useState(null);
+    return (
+      <>
+        <Router>
+          <Header />
+          <Switch>
+            <Route exact path="/">
 
-  useEffect(() => {
-    const newSocket = io(`http://localhost:3500/system`);
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, [setSocket]);
-  
+            </Route>
+            <Route exact path="/t">
 
-  return (
-    <div className="App">
-      <header className="app-header">
-        React Chat
-      </header>
-      { socket ? (
-        <div className="chat-container">
-          <p>ffffffffffff</p>
-          <Telephone socket={socket} />
-         
-        </div>
-      ) : (
-        <div>Not Connected</div>
-      )}
-    </div>
-  );
+            </Route>
+          </Switch>
+          <Footer />
+        </Router>
+      </>
+    );
+  }
 }
-
-export default App;
+export default App
