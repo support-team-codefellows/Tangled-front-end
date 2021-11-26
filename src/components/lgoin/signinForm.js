@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { FormErrors } from './FormErrors';
 import axios from 'axios';
+// import {useState,useContext} from 'react';
+// import { AuthContext } from '../../context/auth.context';
 class SignInForm extends Component {
 
   constructor (props) {
@@ -18,21 +20,23 @@ class SignInForm extends Component {
   }
   handleSubmit = async (e)=>{
     e.preventDefault();
+    const auth = useContext(AuthContext);
     let username = this.state.email;
     let password = this.state.password;
     let lastname =e.target.name.value;
-    let url= 'http://localhost:3000/sign-in'
-    let obj={username,password,lastname};
-  await axios.post(url,{
-    headers: {
-        'Authorization': obj
-      }
+    let url= 'http://localhost:3000/sign-in';
+  await axios.post(url,{},{
+    "auth": {
+      username: username,
+      password: password,
+      lastname:lastname
+    }
   }).then((result)=>{
     console.log(result.data); 
   })
-
+  // auth.login(username,password,lastname);
+  // console.log(auth.isLoggedIn);
   }
-
   handleUserInput = (e) => { 
     e.preventDefault();
     const name = e.target.name;
