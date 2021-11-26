@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 // import { Provider } from 'react-redux'
 // core components
+
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
 
@@ -12,7 +13,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       
-      <Route path="/admin" component={Admin} />
+      <Route path="/admin" component={Admin} /> 
       <Route path="/rtl" component={RTL} />
       <Redirect from="/" to="/admin/dashboard" />
     </Switch>

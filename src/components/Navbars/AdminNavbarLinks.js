@@ -16,6 +16,8 @@ import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
 // core components
+import SignIn from "../lgoin/signin";
+import Signup from "../lgoin/signup";
 import { useHistory } from 'react-router-dom';
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
@@ -23,6 +25,9 @@ import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
 const useStyles = makeStyles(styles);
+
+
+
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
@@ -48,6 +53,9 @@ export default function AdminNavbarLinks() {
   };
   const handleLogout = () => {
     
+  }
+  const handleModalShow = () => {
+    let show = true
   }
   const handleCloseProfile = () => {
     setOpenProfile(null);
@@ -83,6 +91,7 @@ export default function AdminNavbarLinks() {
         </Hidden>
       </Button>
       <div className={classes.manager}>
+     
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
@@ -207,6 +216,20 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     
                     <Divider light />
+                    <MenuItem
+                      onClick={handleModalShow}
+                      className={classes.dropdownItem}
+                    >
+                  
+                    <SignIn/>
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleModalShow}
+                      className={classes.dropdownItem}
+                    >
+                       <Signup/>
+                     
+                    </MenuItem>
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}

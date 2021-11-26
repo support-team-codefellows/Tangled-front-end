@@ -6,7 +6,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-
+// import Modal from './components/Home/Home.js';
 
 class App extends React.Component {
 

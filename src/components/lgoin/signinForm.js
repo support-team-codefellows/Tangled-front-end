@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
 import { FormErrors } from './FormErrors';
-// import './Form.css';
 import axios from 'axios';
-class Form extends Component {
+class SignInForm extends Component {
+
   constructor (props) {
     super(props);
     this.state = {
@@ -16,17 +16,19 @@ class Form extends Component {
       formValid: false
     }
   }
-
   handleSubmit = async (e)=>{
     e.preventDefault();
     let username = this.state.email;
     let password = this.state.password;
     let lastname =e.target.name.value;
-   
-    let url= 'http://localhost:3000/signup'
+    let url= 'http://localhost:3000/sign-in'
     let obj={username,password,lastname};
-   await  axios.post(url,obj).then((result)=>{
-      console.log(result.data); 
+  await axios.post(url,{
+    headers: {
+        'Authorization': obj
+      }
+  }).then((result)=>{
+    console.log(result.data); 
   })
 
   }
@@ -38,16 +40,13 @@ class Form extends Component {
     this.setState({[name]: value},
     () => { this.validateField(name, value) });
   }
-
-
-
   validateField(fieldName, value) {
   
     let fieldValidationErrors = this.state.formErrors;
     let emailValid = this.state.emailValid;
     let passwordValid = this.state.passwordValid;
-    // console.log(`Email ${emailValid}`);
-    // console.log(`password ${passwordValid}`);
+    console.log(`Email ${emailValid}`);
+    console.log(`password ${passwordValid}`);
 
 
     switch(fieldName) {
@@ -108,7 +107,7 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default SignInForm;
 
 
 
