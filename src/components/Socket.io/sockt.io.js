@@ -5,14 +5,6 @@ import io from 'socket.io-client'
 
 import Telephone from './compenents/Telephone';
 
-
-
-
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-// import './App.css';
-
 function SocketApp() {
 
   const [socket, setSocket] = useState(null);
@@ -22,8 +14,6 @@ function SocketApp() {
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
-  
-
   
   return (
     <div className="App">

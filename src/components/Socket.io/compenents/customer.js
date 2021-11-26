@@ -1,92 +1,95 @@
 
-import {Form,Button} from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import {io} from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 function Customer() {
 
-    const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const newSocket = io(`http://localhost:3500/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
-  
-
-
-    const [inputField , setInputField] = useState({
-        Customer_Name: '',
-        department: '',
-        Proplem_description: '',
-        phone_Number:''
-    })
-
-    const inputsHandler = (e) =>{
-        setInputField( {...inputField,[e.target.name]: e.target.value} )
-    }
-
-    const submitButton =async () =>{
-        console.log('inputField',inputField);
-
-       await socket.emit('customerFrontEvent',inputField)
-    }
-
-
-    // useEffect(() => {
-
-  
-    // }, [socket]);
 
 
 
+  const [inputField, setInputField] = useState({
+    customerName: '',
+    phoneNumber: '',
+    subject: '',
+    department: '',
+    description: '',
+    status: 'unprocessed'
+  })
 
-    return (
-        <div>
+  const inputsHandler = (e) => {
+    setInputField({ ...inputField, [e.target.name]: e.target.value })
+  }
 
-            <input 
-            type="text" 
-            name="Customer_Name" 
-            onChange={inputsHandler} 
-            placeholder="Your Name" 
-            value={inputField.Customer_Name}/>
+  const submitButton = async () => {
+    console.log('inputField', inputField);
 
-            <br/>
+    await socket.emit('customerFrontEvent', inputField)
+  }
 
-            <input 
-            type="text" 
-            name="department" 
-            onChange={inputsHandler} 
-            placeholder="department" 
-            value={inputField.department}/>
 
-            <br/>
+  // useEffect(() => {
 
-            <input 
-            type="text" 
-            name="Proplem_description" 
-            onChange={inputsHandler} 
-            placeholder="Proplem_description" 
-            value={inputField.Proplem_description}/>
 
-            
-
-            <br/>
-
-            <input 
-            type="text" 
-            name="phone_Number" 
-            onChange={inputsHandler} 
-            placeholder="phone_Number" 
-            value={inputField.phone_Number}/>
-
-            <button onClick={submitButton}>Submit Now</button>
+  // }, [socket]);
 
 
 
 
-{/* <Form>
+  return (
+    <div>
+
+      <input
+        type="text"
+        name="customerName"
+        onChange={inputsHandler}
+        placeholder="Your Name"
+        value={inputField.customerName} />
+      <br />
+
+      <input
+        type="text"
+        name="phoneNumber"
+        onChange={inputsHandler}
+        placeholder="phoneNumber"
+        value={inputField.phoneNumber} />
+      <br />
+
+      <input
+        type="text"
+        name="subject"
+        onChange={inputsHandler}
+        placeholder="subject"
+        value={inputField.subject} />
+      <br />
+      
+      <select id="department" name="department" onChange={inputsHandler}>
+        <option value="Telephone">Telephone</option>
+        <option value="OnSite">OnSite</option>
+        <option value="LiveChat">LiveChat</option>
+      </select>
+      <br />
+
+      <input
+        type="text"
+        name="description"
+        onChange={inputsHandler}
+        placeholder="description"
+        value={inputField.description} />
+      <br />
+
+      <button onClick={submitButton}>Submit</button>
+
+
+      {/* <Form>
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
     <Form.Control type="email" placeholder="Enter email" />
@@ -107,12 +110,12 @@ function Customer() {
   </Button>
 </Form> */}
 
-        </div>
+    </div>
 
 
 
 
-    )
+  )
 
 
 
