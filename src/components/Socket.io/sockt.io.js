@@ -1,37 +1,47 @@
-import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
-import Login from "./components/lgoin/LoginModal";
-import Telephone from "./components/Telephone";
+import React, { useEffect, useState } from 'react';
 
-// https://www.creative-tim.com/product/material-dashboard-react
-//
+import Customer from './compenents/customer';
+import io from 'socket.io-client'
+
+import Telephone from './compenents/Telephone';
+
+
+
+
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 // import './App.css';
 
-function App() {
+function SocketApp() {
+
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(`http://localhost:3500/system`);
+    const newSocket = io(`http://localhost:3500/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
+  
+
+  
   return (
     <div className="App">
       <header className="app-header">
         React Chat
       </header>
+      <Customer  />
+         
       { socket ? (
         <div className="chat-container">
-          <p>ffffffffffff</p>
           <Telephone socket={socket} />
          
         </div>
       ) : (
         <div>Not Connected</div>
       )}
-      <Login/>
     </div>
   );
 }
 
-export default App;
+export default SocketApp;
