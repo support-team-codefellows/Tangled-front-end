@@ -2,11 +2,13 @@
 import React, { Component } from 'react';
 import { FormErrors } from './FormErrors';
 import axios from 'axios';
+import store from '../../store';
 class SignInForm extends Component {
 
   constructor (props) {
     super(props);
     this.state = {
+      loggedin:'',
       Username:'',
       email: '',
       password: '',
@@ -16,20 +18,36 @@ class SignInForm extends Component {
       formValid: false
     }
   }
+
+
   handleSubmit = async (e)=>{
     e.preventDefault();
     let username = this.state.email;
     let password = this.state.password;
     let lastname =e.target.name.value;
     let url= 'http://localhost:3000/sign-in'
-    let obj={username,password,lastname};
-  await axios.post(url,{
-    headers: {
-        'Authorization': obj
-      }
+  await axios.post(url,{},{
+    auth: {
+      username: username,
+      password: password,
+    }
   }).then((result)=>{
-    console.log(result.data); 
+    this.setState({
+      loggedin: result.data
+    });
+    const user = result.data;
+    localStorage.setItem('user', JSON.stringify(user) )
+    store.dispatch({
+      type: 'SET_USER',
+      payload: user
+    })
+    store.dispatch({
+      type: 'SET_SHOW',
+      payload : false
+    })
   })
+ 
+
 
   }
 
@@ -101,7 +119,7 @@ class SignInForm extends Component {
             value={this.state.password}
             onChange={this.handleUserInput}/>
         </div>
-        <button type="submit" className="btn btn-primary" disabled={!this.state.formValid}>Sign up</button>
+        <button type="submit" className="btn btn-primary" disabled={!this.state.formValid}>Sign in</button>
       </form>
     )
   }
