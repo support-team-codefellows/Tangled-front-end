@@ -35,28 +35,69 @@ import { bugs, website, server } from "variables/general.js";
 
 function Telephone({ socket }) {
 
-  let [cases, setCases] = useState([]);
+  // let [cases, setCases] = useState([]);
   let [caseSubjects, setCaseSubjects] = useState([]);
   let [claimedCase, setClaimedCase] = useState(null);
   let [sum, setSum] = useState(0);
   let [newCasesFlag, setNewCasesFlag]=useState(false);
+  let [cases,setCases ] = useState([])
+
   
-  useEffect(() => {
-    socket.on("telephoneIssue", (payload) => {
-      setSum(sum++);
-      setCases(oldCases => [ payload,...oldCases ]);
-      setCaseSubjects(oldSubjects => [ payload.obj.service.subject,...oldSubjects ]);
-    });
-  }, [socket]);
 
   let newCasesHandler = () => {
     setSum(0);
     setNewCasesFlag(true);
   }
 
+ 
+
+  
+
+  useEffect(() => {
+
+    setTimeout(() => {
+
+      socket.emit('getAll','Telephone')
+      
+    }, 10000);
+  
+  
+    
+    
+    socket.on("telephoneIssue", (data) => {
+
+      // let newData;
+      // if (data) {
+
+      //    newData=data.obj.service.phoneNumber
+        
+      // }else{
+      //    newData=null
+        
+      // }
+     
+      setCases(oldArray => [...oldArray, data])
+
+      // setCaseSubjects(oldSubject=>[...oldSubject,newData ])
+      setSum(sum++);
+      
+    });
+    
+  }, [socket]);
+
+
+  console.log('cases',cases);
+
+  // console.log('caseSubjects',caseSubjects);
+
+
+ 
+
   let clearAll = () => {
     socket.emit('deleteAll', 'Telephone');
   }
+
+     
 
   return (
     <div>
@@ -117,6 +158,9 @@ function Telephone({ socket }) {
           </Card>
         </GridItem>
       </GridContainer>
+      
+
+
 
 
       {newCasesFlag && <GridContainer>
@@ -130,8 +174,9 @@ function Telephone({ socket }) {
                 tabContent: (
                   <Tasks
                     checkedIndexes={[]}
-                    tasksIndexes={[]}
-                    tasks={caseSubjects} // array in here
+                    tasksIndexes={cases}
+                    
+                    tasks={['asdasd','asdsadsad','asdsad','asdsadasd']} // array in here
                   />
                 ),
               },
@@ -203,11 +248,11 @@ export default Telephone;
 
 //     // socket.emit('getMessages');
 
-//     return () => {
-//       socket.off('message', messageListener);
-//       socket.off('deleteMessage', deleteMessageListener);
-//     };
-//   }, [socket]);
+  //   return () => {
+  //     socket.off('message', messageListener);
+  //     socket.off('deleteMessage', deleteMessageListener);
+  //   };
+  // }, [socket]);
 
 //   return (
 //     <div className="message-list">

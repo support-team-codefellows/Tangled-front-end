@@ -29,10 +29,10 @@ function Customer() {
     setInputField({ ...inputField, [e.target.name]: e.target.value })
   }
 
-  const submitButton = async () => {
+  const submitButton =  () => {
     console.log('inputField', inputField);
 
-    await socket.emit('customerFrontEvent', inputField)
+     socket.emit('customerFrontEvent', inputField)
   }
 
 
@@ -72,8 +72,9 @@ function Customer() {
       <br />
       
       <select id="department" name="department" onChange={inputsHandler}>
-        <option value="Telephone">Telephone</option>
+        <option >.........</option>
         <option value="OnSite">OnSite</option>
+        <option value="Telephone">Telephone</option>
         <option value="LiveChat">LiveChat</option>
       </select>
       <br />
