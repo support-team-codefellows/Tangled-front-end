@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { FormErrors } from './FormErrors';
+import store from '../../store';
 // import './Form.css';
 import axios from 'axios';
 class Form extends Component {
@@ -28,7 +29,10 @@ class Form extends Component {
    await  axios.post(url,obj).then((result)=>{
       console.log(result.data); 
   })
-
+  store.dispatch({
+    type: 'SET_SHOW',
+    payload : false
+  })
   }
 
   handleUserInput = (e) => { 

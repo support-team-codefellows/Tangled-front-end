@@ -1,30 +1,35 @@
 // import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal'
-import Form from './signinForm';
+import Form from './login';
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import {connect} from 'react-redux';
+import store from '../../store';
 import MenuItem from "@material-ui/core/MenuItem";
-export default function SignIn() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+ function Signup(props) {
+ 
+  const handleClose = () =>  store.dispatch({
+    type: 'SET_SHOW',
+    payload : false
+  });
+  const handleShow = () =>  store.dispatch({
+    type: 'SET_SHOW',
+    payload : true
+  });
+const show = props.modal
   return (
     <>
       <MenuItem
-        onClick={handleShow} >
-      Sign in
+        onClick={handleShow}>
+      
+        Sign up
       </MenuItem>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Sign in</Modal.Title>
+          <Modal.Title>Sign up</Modal.Title>
         </Modal.Header>
-        <Modal.Body><Form/> </Modal.Body>
+        <Modal.Body><Form /> </Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-            Sign in
-          </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -35,7 +40,9 @@ export default function SignIn() {
 }
 // render(<Example/>);
 
-
+export default connect(function(state) {
+  return state
+})(Signup)
 
 
 
