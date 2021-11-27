@@ -2,7 +2,7 @@
 import { Badge, Button } from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://localhost:3500";
+const ENDPOINT = "https://project401.herokuapp.com/";
 
 import Icon from "@material-ui/core/Icon";
 import GridItem from "components/Grid/GridItem";
@@ -30,6 +30,7 @@ import Tasks from "components/Tasks/Tasks.js";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 
 import { bugs, website, server } from "variables/general.js";
+import { WatchOutlined } from '@material-ui/icons';
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>oOo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
@@ -41,63 +42,36 @@ function Telephone({ socket }) {
   let [sum, setSum] = useState(0);
   let [newCasesFlag, setNewCasesFlag]=useState(false);
   let [cases,setCases ] = useState([])
-
-  
+  let [counter,setCounter ] = useState([])
 
   let newCasesHandler = () => {
     setSum(0);
     setNewCasesFlag(true);
+    setCounter([])
   }
 
- 
-
-  
-
   useEffect(() => {
-
     setTimeout(() => {
-
       socket.emit('getAll','Telephone')
-      
     }, 10000);
-  
-  
-    
-    
+
+   
     socket.on("telephoneIssue", (data) => {
-
-      // let newData;
-      // if (data) {
-
-      //    newData=data.obj.service.phoneNumber
-        
-      // }else{
-      //    newData=null
-        
-      // }
-     
-      setCases(oldArray => [...oldArray, data])
-
-      // setCaseSubjects(oldSubject=>[...oldSubject,newData ])
-      setSum(sum++);
       
+      setCases(oldArray => [data,...oldArray ]);
+
+      setCounter( oldArray => [data,...oldArray ]);
+      setSum(sum++);
     });
-    
   }, [socket]);
 
-
-  console.log('cases',cases);
-
-  // console.log('caseSubjects',caseSubjects);
-
-
  
+  console.log('cases',cases);
+  console.log('caseSubjects',caseSubjects);
 
   let clearAll = () => {
     socket.emit('deleteAll', 'Telephone');
   }
-
-     
 
   return (
     <div>
@@ -108,8 +82,8 @@ function Telephone({ socket }) {
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger"  style={{ cursor: "pointer"}}>
-                <h2>
-                  <Badge onClick={newCasesHandler} bg="Dark">{sum}</Badge>
+                <h2 >
+                  <Badge onClick={newCasesHandler} bg="Dark">{counter.length}</Badge>
                 </h2>
               </CardIcon>
             </CardHeader>
@@ -158,10 +132,6 @@ function Telephone({ socket }) {
           </Card>
         </GridItem>
       </GridContainer>
-      
-
-
-
 
       {newCasesFlag && <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
@@ -176,34 +146,34 @@ function Telephone({ socket }) {
                     checkedIndexes={[]}
                     tasksIndexes={cases}
                     
-                    tasks={['asdasd','asdsadsad','asdsad','asdsadasd']} // array in here
+                    tasks={cases} // array in here
                   />
                 ),
               },
-              {
-                tabName: "Claimed",
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[]}
-                    tasksIndexes={[]}
-                    tasks={website}
-                  />
-                ),
-              },
-              {
-                tabName: "Fixed",
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[]}
-                    tasksIndexes={[]}
-                    tasks={server}
-                  />
-                ),
-              },
+              // {
+              //   tabName: "Claimed",
+              //   tabContent: (
+              //     <Tasks
+              //       checkedIndexes={[]}
+              //       tasksIndexes={[]}
+              //       tasks={website}
+              //     />
+              //   ),
+              // },
+              // {
+              //   tabName: "Fixed",
+              //   tabContent: (
+              //     <Tasks
+              //       checkedIndexes={[]}
+              //       tasksIndexes={[]}
+              //       tasks={server}
+              //     />
+              //   ),
+              // },
             ]}
           />
         </GridItem>
-        {claimedCase && <GridItem xs={12} sm={12} md={6}>
+        {/* {claimedCase && <GridItem xs={12} sm={12} md={6}>
           <Card>
             <CardHeader color="warning">
               <h4>{claimedCase.subject}</h4>
@@ -211,7 +181,7 @@ function Telephone({ socket }) {
             </CardHeader>
             <CardBody>{claimedCase.description}</CardBody>
           </Card>
-        </GridItem>}
+        </GridItem>} */}
       </GridContainer> }
     </div>
   );
