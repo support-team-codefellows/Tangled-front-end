@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import Header from './components/Navbars/Navbar.js';
+import Footer from './components/Footer/Footer.js';
+import React, { useState, useEffect } from 'react';
+import Admin from "layouts/Admin.js";
+import RTL from "layouts/RTL.js";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route, Redirect
+} from "react-router-dom";
+// import Modal from './components/Home/Home.js';
+
+export default function app() {
+  const [logged, setLogged] = useState(false);
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      setLogged(true);
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+      console.log(' this is the log ', foundUser);
+    }
+  }, []);
+  console.log(' this is the log ', logged);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to test.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+
+        <Switch>
+          <Route path="/admin" component={Admin} />
+          <Route path="/rtl" component={RTL} />
+          <Redirect from="/" to="/admin/dashboard" />
+
+        </Switch>
+
+      </Router>
+    </>
   );
 }
 
-export default App;
+
+
+// class App extends React.Component {
+//   constructor(props) {
+
+
+//   }
+//   render() {
+
+
+// }
+// export default App
