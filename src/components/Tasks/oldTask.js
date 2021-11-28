@@ -16,7 +16,6 @@ import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tasksStyle.js";
-import { Title } from "@material-ui/icons";
 
 const useStyles = makeStyles(styles);
 
@@ -40,7 +39,7 @@ export default function Tasks(props) {
   return (
     <Table className={classes.table}>
       <TableBody>
-        {tasksIndexes.map((value,index) => (
+        {tasksIndexes.map((value) => (
           <TableRow key={value} className={classes.tableRow}>
             <TableCell className={tableCellClasses}>
               <Checkbox
@@ -55,10 +54,7 @@ export default function Tasks(props) {
                 }}
               />
             </TableCell>
-           
-            <TableCell className={tableCellClasses}> <h4  >Customer Name:</h4> <br/> {tasks[index].obj.service.customerName}</TableCell>
-            <TableCell className={tableCellClasses}> Phone Number:  {tasks[index].obj.service.phoneNumber}</TableCell>
-            <TableCell className={tableCellClasses}> Subject:  {tasks[index].obj.service.subject}</TableCell>
+            <TableCell className={tableCellClasses}>{tasks[value]}</TableCell>
             <TableCell className={classes.tableActions}>
               <Tooltip
                 id="tooltip-top"
