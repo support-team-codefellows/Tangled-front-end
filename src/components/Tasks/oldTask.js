@@ -16,10 +16,11 @@ import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tasksStyle.js";
+import { Title } from "@material-ui/icons";
 
 const useStyles = makeStyles(styles);
 
-export default function Tasks(props) {
+export default function oldTasks(props) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([...props.checkedIndexes]);
   const handleToggle = (value) => {
@@ -39,7 +40,7 @@ export default function Tasks(props) {
   return (
     <Table className={classes.table}>
       <TableBody>
-        {tasksIndexes.map((value) => (
+        {tasksIndexes.map((value,index) => (
           <TableRow key={value} className={classes.tableRow}>
             <TableCell className={tableCellClasses}>
               <Checkbox
@@ -54,7 +55,10 @@ export default function Tasks(props) {
                 }}
               />
             </TableCell>
-            <TableCell className={tableCellClasses}>{tasks[value]}</TableCell>
+           
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Customer Name</strong> <br/> {tasks[index].obj.service.customerName}</TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Phone Number</strong> <br/> {tasks[index].obj.service.phoneNumber}</TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Subject</strong> <br/> {tasks[index].obj.service.subject}</TableCell>
             <TableCell className={classes.tableActions}>
               <Tooltip
                 id="tooltip-top"
@@ -98,7 +102,7 @@ export default function Tasks(props) {
   );
 }
 
-Tasks.propTypes = {
+oldTasks.propTypes = {
   tasksIndexes: PropTypes.arrayOf(PropTypes.number),
   tasks: PropTypes.arrayOf(PropTypes.node),
   rtlActive: PropTypes.bool,

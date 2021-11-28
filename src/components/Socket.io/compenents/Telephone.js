@@ -26,7 +26,7 @@ import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
 // core components
 import Table from "components/Table/Table.js";
-import Tasks from "components/Tasks/Tasks.js";
+import Tasks from "../../Tasks/oldTask";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 
 import { bugs, website, server } from "variables/general.js";
