@@ -1,9 +1,11 @@
 
+
 import Header from './components/Navbars/Navbar.js';
 import Footer from './components/Footer/Footer.js';
 import React, { useState, useEffect } from 'react';
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
+import ChatForm from "./components/Socket.io/compenents/ChatForm"
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,6 +23,7 @@ export default function app() {
   const [user, setUser] = useState();
   const [socket, setSocket] = useState(null);
 
+
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
     if (loggedInUser) {
@@ -33,7 +36,7 @@ export default function app() {
   console.log(' this is the log ', logged);
 
   useEffect(() => {
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    const newSocket = io(`http://localhost:3500`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
@@ -46,6 +49,7 @@ export default function app() {
           <>
           <Route path="/admin" component={Admin} />
           <Route path="/socketApp" component={SocketApp} />
+          <Route path="/chatapp" component={ChatForm} />
           <Route path="/rtl" component={RTL} />
 
           </> : <p>Hi</p>}

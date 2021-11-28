@@ -9,7 +9,7 @@ function Customer() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    const newSocket = io(`http://localhost:3500`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
