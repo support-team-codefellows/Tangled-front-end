@@ -1,9 +1,11 @@
 
+
 import Header from './components/Navbars/Navbar.js';
 import Footer from './components/Footer/Footer.js';
 import React, { useState, useEffect } from 'react';
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
+import ChatForm from "./components/Socket.io/compenents/ChatForm"
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,6 +22,7 @@ export default function app() {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState();
   const [socket, setSocket] = useState(null);
+
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -46,6 +49,7 @@ export default function app() {
           <>
           <Route path="/admin" component={Admin} />
           <Route path="/socketApp" component={SocketApp} />
+          <Route path="/chatapp" component={ChatForm} />
           <Route path="/rtl" component={RTL} />
 
           </> : <p>Hi</p>}
