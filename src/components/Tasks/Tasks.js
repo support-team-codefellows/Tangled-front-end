@@ -14,6 +14,8 @@ import TableCell from "@material-ui/core/TableCell";
 import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
+import Done from "@material-ui/icons/Done";
+
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tasksStyle.js";
 import { Title } from "@material-ui/icons";
@@ -56,28 +58,28 @@ export default function Tasks(props) {
               />
             </TableCell>
            
-            <TableCell className={tableCellClasses}> <h4  >Customer Name:</h4> <br/> {tasks[index].obj.service.customerName}</TableCell>
-            <TableCell className={tableCellClasses}> Phone Number:  {tasks[index].obj.service.phoneNumber}</TableCell>
-            <TableCell className={tableCellClasses}> Subject:  {tasks[index].obj.service.subject}</TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Customer Name</strong> <br/> {tasks[index].obj.service.customerName}</TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Phone Number</strong> <br/> {tasks[index].obj.service.phoneNumber}</TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Subject</strong> <br/> {tasks[index].obj.service.subject}</TableCell>
             <TableCell className={classes.tableActions}>
               <Tooltip
                 id="tooltip-top"
-                title="Edit Task"
+                title="done Task"
                 placement="top"
                 classes={{ tooltip: classes.tooltip }}
               >
                 <IconButton
-                  aria-label="Edit"
+                  aria-label="done"
                   className={classes.tableActionButton}
                 >
-                  <Edit
+                  <done
                     className={
-                      classes.tableActionButtonIcon + " " + classes.edit
+                      classes.tableActionButtonIcon + " " + classes.done
                     }
                   />
                 </IconButton>
               </Tooltip>
-              <Tooltip
+              {/* <Tooltip
                 id="tooltip-top-start"
                 title="Remove"
                 placement="top"
@@ -93,7 +95,7 @@ export default function Tasks(props) {
                     }
                   />
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
             </TableCell>
           </TableRow>
         ))}
