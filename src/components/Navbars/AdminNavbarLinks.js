@@ -16,13 +16,18 @@ import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
 // core components
+import SignIn from "../login/signin";
+import Signup from "../login/signup";
 import { useHistory } from 'react-router-dom';
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
-
+import store from '../../store';
 const useStyles = makeStyles(styles);
+
+
+
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
@@ -39,18 +44,26 @@ export default function AdminNavbarLinks() {
   const handleCloseNotification = () => {
     setOpenNotification(null);
   };
+
   const handleClickProfile = (event) => {
     if (openProfile && openProfile.contains(event.target)) {
       setOpenProfile(null);
     } else {
       setOpenProfile(event.currentTarget);
     }
+
   };
-  const handleLogout = () => {
+ 
+  const handleModalShow = () => {
     
   }
   const handleCloseProfile = () => {
-    setOpenProfile(null);
+    console.log('done');
+    // //setOpenProfile(null);
+    localStorage.clear();
+    store.dispatch({
+      type: 'CLEAR_USER',
+    })
   };
   return (
     <div>
@@ -83,6 +96,7 @@ export default function AdminNavbarLinks() {
         </Hidden>
       </Button>
       <div className={classes.manager}>
+     
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
@@ -196,10 +210,10 @@ export default function AdminNavbarLinks() {
               }}
             >
               <Paper>
-                <ClickAwayListener onClickAway={handleCloseProfile}>
+                <ClickAwayListener onClickAway={()=>{}}>
                   <MenuList role="menu">
                     <MenuItem
-                    
+                                                                    
                       onClick={() => history.push('/admin/user')}
                       className={classes.dropdownItem}
                     >
@@ -207,6 +221,20 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     
                     <Divider light />
+                    <MenuItem
+                      onClick={handleModalShow}
+                      className={classes.dropdownItem}
+                    >
+                  
+                    <SignIn/>
+                    </MenuItem>
+                    <MenuItem
+                      onClick={handleModalShow}
+                      className={classes.dropdownItem}
+                    >
+                       <Signup/>
+                     
+                    </MenuItem>
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
