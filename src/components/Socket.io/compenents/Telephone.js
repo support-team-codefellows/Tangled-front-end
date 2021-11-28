@@ -2,7 +2,7 @@
 import { Badge, Button } from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://localhost:3500";
+const ENDPOINT = "https://project401.herokuapp.com/";
 
 import Icon from "@material-ui/core/Icon";
 import GridItem from "components/Grid/GridItem";

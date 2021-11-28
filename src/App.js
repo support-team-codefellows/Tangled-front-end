@@ -36,7 +36,7 @@ export default function app() {
   console.log(' this is the log ', logged);
 
   useEffect(() => {
-    const newSocket = io(`http://localhost:3500`);
+    const newSocket = io(`https://project401.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
