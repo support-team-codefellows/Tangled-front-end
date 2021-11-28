@@ -1,4 +1,4 @@
-import React from "react";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -12,8 +12,10 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-
+import React, { useState, useEffect } from 'react';
 import avatar from "assets/img/faces/marc.jpg";
+
+import {connect} from 'react-redux';
 
 const styles = {
   cardCategoryWhite: {
@@ -37,7 +39,10 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 
-export default function UserProfile() {
+function UserProfile(props) {
+  console.log(props);
+  const userObj = props.user;
+
   const classes = useStyles();
   return (
     <div>
@@ -160,8 +165,9 @@ export default function UserProfile() {
               </a>
             </CardAvatar>
             <CardBody profile>
-              <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>Alec Thompson</h4>
+            {/* <h6 className={classes.cardCategory}>{userObj.lastname}</h6> */}
+              {/* <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6> */}
+              <h4 className={classes.cardTitle}>{userObj ? userObj.lastname : ''}</h4>
               <p className={classes.description}>
                 Don{"'"}t be scared of the truth because we need to restart the
                 human foundation in truth And I love you like Kanye loves Kanye
@@ -177,3 +183,9 @@ export default function UserProfile() {
     </div>
   );
 }
+
+export default connect(function(state) {
+  return state
+})(UserProfile)
+
+// connect(function(state) {retrun {profileImage: state.profile}})(Compoenent)

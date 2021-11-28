@@ -1,35 +1,56 @@
-import React from 'react';
+
 import Header from './components/Navbars/Navbar.js';
 import Footer from './components/Footer/Footer.js';
+import React, { useState, useEffect } from 'react';
+import Admin from "layouts/Admin.js";
+import RTL from "layouts/RTL.js";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route, Redirect
 } from "react-router-dom";
+// import Modal from './components/Home/Home.js';
 
+export default function app() {
+  const [logged, setLogged] = useState(false);
+  const [user, setUser] = useState()
 
-class App extends React.Component {
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      setLogged(true);
+      const foundUser = JSON.parse(loggedInUser);
+      setUser(foundUser);
+      console.log(' this is the log ', foundUser);
+    }
+  }, []);
+  console.log(' this is the log ', logged);
 
-  render() {
+  return (
+    <>
+      <Router>
 
-    return (
-      <>
-      
-        <Router>
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              
+        <Switch>
+          <Route path="/admin" component={Admin} />
+          <Route path="/rtl" component={RTL} />
+          <Redirect from="/" to="/admin/dashboard" />
 
-            </Route>
-            <Route exact path="/t">
+        </Switch>
 
-            </Route>
-          </Switch>
-          <Footer />
-        </Router>
-      </>
-    );
-  }
+      </Router>
+    </>
+  );
 }
-export default App
+
+
+
+// class App extends React.Component {
+//   constructor(props) {
+
+
+//   }
+//   render() {
+
+
+// }
+// export default App
