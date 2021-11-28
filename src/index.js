@@ -20,18 +20,18 @@ const MainApp = function () {
           <App/>
         </Switch>
       </BrowserRouter>
-//  <BrowserRouter>
-//     <Switch>
+ {/* <BrowserRouter>
+    <Switch>
       
-//       <Route path="/admin" component={Admin} />
-//       <Route path="/socketApp" component={SocketApp} />
-//       <Route path="/rtl" component={RTL} />
+      <Route path="/admin" component={Admin} />
+    <Route path="/socketApp" component={SocketApp} />
+       <Route path="/rtl" component={RTL} />
 
-//       {/* <Route path="/Telephone" component={RTL} /> */}
+  <Route path="/Telephone" component={RTL} /> 
 
-//       <Redirect from="/" to="/socketApp" />
-//     </Switch>
-//   </BrowserRouter>,
+     <Redirect from="/" to="/socketApp" /> 
+    </Switch> 
+   </BrowserRouter> */}
     </Provider>
   )
 }
