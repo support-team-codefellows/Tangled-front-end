@@ -10,13 +10,17 @@ import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+
+
 // @material-ui/icons
 import Edit from "@material-ui/icons/Edit";
 import Close from "@material-ui/icons/Close";
 import Check from "@material-ui/icons/Check";
+
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tasksStyle.js";
 import { Title } from "@material-ui/icons";
+import { Socket } from "socket.io-client";
 
 const useStyles = makeStyles(styles);
 
@@ -32,21 +36,35 @@ export default function oldTasks(props) {
       newChecked.splice(currentIndex, 1);
     }
     setChecked(newChecked);
+   
+    value.obj.service.status='processing'
+    socket.emit('claimCase',value)
   };
-  const { tasksIndexes, tasks, rtlActive } = props;
+  const { tasksIndexes, tasks, rtlActive,socket } = props;
   const tableCellClasses = classnames(classes.tableCell, {
     [classes.tableCellRTL]: rtlActive,
   });
+
+ 
+   
+ 
   return (
     <Table className={classes.table}>
       <TableBody>
         {tasksIndexes.map((value,index) => (
           <TableRow key={value} className={classes.tableRow}>
             <TableCell className={tableCellClasses}>
+
+
+
+              
               <Checkbox
                 checked={checked.indexOf(value) !== -1}
                 tabIndex={-1}
-                onClick={() => handleToggle(value)}
+                onClick={() => handleToggle(value)
+                        
+                
+                }
                 checkedIcon={<Check className={classes.checkedIcon} />}
                 icon={<Check className={classes.uncheckedIcon} />}
                 classes={{
@@ -59,6 +77,7 @@ export default function oldTasks(props) {
             <TableCell className={tableCellClasses}><strong class="font-weight-bold">Customer Name</strong> <br/> {tasks[index].obj.service.customerName}</TableCell>
             <TableCell className={tableCellClasses}><strong class="font-weight-bold">Phone Number</strong> <br/> {tasks[index].obj.service.phoneNumber}</TableCell>
             <TableCell className={tableCellClasses}><strong class="font-weight-bold">Subject</strong> <br/> {tasks[index].obj.service.subject}</TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Status</strong> <br/> {tasks[index].obj.service.status}</TableCell>
             <TableCell className={classes.tableActions}>
               <Tooltip
                 id="tooltip-top"

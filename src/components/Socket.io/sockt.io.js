@@ -10,7 +10,7 @@ function SocketApp() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    const newSocket = io(`http://localhost:3500/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
@@ -20,7 +20,7 @@ function SocketApp() {
       <header className="app-header">
         React Chat
       </header>
-      <Customer  />
+      {/* <Customer/> */}
          
       { socket ? (
         <div className="chat-container">

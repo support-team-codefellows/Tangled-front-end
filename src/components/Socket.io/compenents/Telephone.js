@@ -2,7 +2,7 @@
 import { Badge, Button } from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
-const ENDPOINT = "https://project401.herokuapp.com/";
+const ENDPOINT = "http://localhost:3500/";
 
 import Icon from "@material-ui/core/Icon";
 import GridItem from "components/Grid/GridItem";
@@ -63,7 +63,15 @@ function Telephone({ socket }) {
       setCounter( oldArray => [data,...oldArray ]);
       setSum(sum++);
     });
-  }, [socket]);
+
+    socket.on("processingStatus", (data) => {
+      console.log('datadatadatadatadatadata',data);
+    }
+
+    
+
+
+  )}, [socket]);
 
  
   console.log('cases',cases);
@@ -147,6 +155,7 @@ function Telephone({ socket }) {
                     tasksIndexes={cases}
                     
                     tasks={cases} // array in here
+                    socket={socket}
                   />
                 ),
               },
