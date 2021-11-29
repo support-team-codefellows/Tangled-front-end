@@ -51,10 +51,8 @@ export default function app() {
           <Route path="/chatapp" component={ChatForm} />
           <Route path="/rtl" component={RTL} />
 
-          <Route path="/customer" component={Customer} />
-
-          </> : <p>Hi</p>}
           <Redirect from="/" to="/admin/dashboard" />
+          </> : <p>Hi</p>}
         </Switch>
       </Router>
     </>
