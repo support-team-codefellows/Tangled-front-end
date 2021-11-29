@@ -1,20 +1,21 @@
 
-import { Form, Button } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Form, Button } from 'react-bootstrap';
 import { io } from 'socket.io-client';
+import { Notification, toaster, Drawer } from 'rsuite';
+import "rsuite/dist/rsuite.min.css";
 
 function Customer() {
-
   const [socket, setSocket] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
+    // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
     const newSocket = io(`https://project401.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
-
-
 
   const [inputField, setInputField] = useState({
     customerName: '',
@@ -29,98 +30,78 @@ function Customer() {
     setInputField({ ...inputField, [e.target.name]: e.target.value })
   }
 
-  const submitButton =  () => {
+  const submitButton = () => {
     console.log('inputField', inputField);
+    socket.emit('customerFrontEvent', inputField);
+    setShowNotification(true)
+    setTimeout(()=>{setShowNotification(false)}, 2000);
 
-     socket.emit('customerFrontEvent', inputField)
   }
 
-
-  // useEffect(() => {
-
-
-  // }, [socket]);
-
-
-
-
   return (
-    <div>
+    <Container>
+      <h2>Customer Portal</h2><br/><br/>
+      <p>Click the following button to submit an issue:</p><br/>
+      <Button onClick={() => setOpen(true)}> Click </Button>
 
-      <input
-        type="text"
-        name="customerName"
-        onChange={inputsHandler}
-        placeholder="Your Name"
-        value={inputField.customerName} />
-      <br />
+      <Drawer size='lg' placement='right' open={open} onClose={() => setOpen(false)}>
+        <Drawer.Header>
+          <Drawer.Title>Submit an Issue</Drawer.Title>
+        </Drawer.Header>
+        <Drawer.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text"
+                name="customerName"
+                onChange={inputsHandler}
+                value={inputField.customerName} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control type="text"
+                name="phoneNumber"
+                onChange={inputsHandler}
+                value={inputField.phoneNumber} />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Subject</Form.Label>
+              <Form.Control type="text"
+                name="subject"
+                onChange={inputsHandler}
+                value={inputField.subject} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="floatingSelectGrid" >
+              <Form.Label>Department</Form.Label> {'   '}
+              <Form.Select size="lg" aria-label="Default select example" id="department" name="department" onChange={inputsHandler}>
+                <option value="">....</option>
+                <option value="OnSite">OnSite</option>
+                <option value="Telephone">Telephone</option>
+                <option value="LiveChat">LiveChat</option>
+              </Form.Select>
+            </Form.Group>
 
-      <input
-        type="text"
-        name="phoneNumber"
-        onChange={inputsHandler}
-        placeholder="phoneNumber"
-        value={inputField.phoneNumber} />
-      <br />
+            <Form.Group className="mb-3">
+              <Form.Label>Description</Form.Label>
+              <Form.Control as="textarea" rows={3} />
+            </Form.Group>
 
-      <input
-        type="text"
-        name="subject"
-        onChange={inputsHandler}
-        placeholder="subject"
-        value={inputField.subject} />
-      <br />
-      
-      <select id="department" name="department" onChange={inputsHandler}>
-        <option >.........</option>
-        <option value="OnSite">OnSite</option>
-        <option value="Telephone">Telephone</option>
-        <option value="LiveChat">LiveChat</option>
-      </select>
-      <br />
+            <Button variant="info" onClick={submitButton}>Submit</Button>
 
-      <input
-        type="text"
-        name="description"
-        onChange={inputsHandler}
-        placeholder="description"
-        value={inputField.description} />
-      <br />
+          </Form>
+        </Drawer.Body>
+      </Drawer>
 
-      <button onClick={submitButton}>Submit</button>
+      {showNotification && <div className="notification-container">
+        <Notification closable type="success" header="Success">
+          Thank you for contacting us! <br/>
+          Your message has been sent successfully and an employee will contact with you soon. 
+        </Notification>
+      </div>}
 
-
-      {/* <Form>
-  <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" />
-    <Form.Text className="text-muted">
-      We'll never share your email with anyone else.
-    </Form.Text>
-  </Form.Group>
-
-  <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-  </Form.Group>
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
-</Form> */}
-
-    </div>
-
-
-
+    </Container >
 
   )
-
-
-
-
 }
 
 export default Customer;

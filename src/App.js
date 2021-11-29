@@ -14,9 +14,7 @@ import {
 import Customer from './components/Socket.io/compenents/customer';
 import io from 'socket.io-client'
 import Telephone from './components/Socket.io/compenents/Telephone';
-
 import SocketApp from 'components/Socket.io/sockt.io';
-
 
 export default function app() {
   const [logged, setLogged] = useState(false);
@@ -36,6 +34,7 @@ export default function app() {
   console.log(' this is the log ', logged);
 
   useEffect(() => {
+    // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
     const newSocket = io(`https://project401.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
@@ -51,6 +50,8 @@ export default function app() {
           <Route path="/socketApp" component={SocketApp} />
           <Route path="/chatapp" component={ChatForm} />
           <Route path="/rtl" component={RTL} />
+
+          <Route path="/customer" component={Customer} />
 
           </> : <p>Hi</p>}
           <Redirect from="/" to="/admin/dashboard" />

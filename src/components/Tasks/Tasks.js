@@ -17,6 +17,7 @@ import Check from "@material-ui/icons/Check";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tasksStyle.js";
 
+
 const useStyles = makeStyles(styles);
 
 export default function Tasks(props) {

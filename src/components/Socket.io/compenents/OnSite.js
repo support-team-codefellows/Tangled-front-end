@@ -1,5 +1,5 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import { Badge, Button, Col } from 'react-bootstrap'
+import { Badge } from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
 const ENDPOINT = "http://localhost:3500/";
 
@@ -14,7 +14,6 @@ import CardBody from "components/Card/CardBody.js";
 
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
 
 // core components
 // import Table from "components/Table/Table.js";
@@ -22,14 +21,17 @@ import Tasks from "../../Tasks/oldTask";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 
 import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 
+import Button from 'rsuite/Button';
+import "rsuite/dist/rsuite.min.css";
+
+
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>oOo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
-function Telephone({ socket }) {
+function OnSite({ socket }) {
 
   // let [cases, setCases] = useState([]);
   let [caseSubjects, setCaseSubjects] = useState([]);
@@ -40,7 +42,7 @@ function Telephone({ socket }) {
   let [counter, setCounter] = useState([])
   // let [newArray,setNewArray]=useState([])
   let [fixedFlag, setfixedFlag] = useState(false);
-  const [fixedArray, setFixedArray] = React.useState([])
+  const [fixedArray, setFixedArray] = React.useState([]);
 
   let newCasesHandler = () => {
     setSum(0);
@@ -50,47 +52,44 @@ function Telephone({ socket }) {
   }
 
   let flagsHandeler = () => {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     setNewCasesFlag(false);
     setfixedFlag(true);
-    console.log('fixedFlag', fixedFlag);
-    console.log('0000000', fixedArray);
   }
 
   useEffect(() => {
     setTimeout(() => {
-      socket.emit('getAll', 'Telephone')
+      socket.emit('getAll', 'OnSite')
     }, 100);
 
-
-    socket.on("telephoneIssue", (data) => {
-
+    socket.on("onSiteIssue", (data) => {
       setCases(oldArray => [data, ...oldArray]);
-
       setCounter(oldArray => [data, ...oldArray]);
       setSum(sum++);
     });
 
     socket.on("processingStatus", (data) => {
-      console.log('datadatadatadatadatadata', data);
       socket.emit("claimedUserCase", "hi");
     })
   }, [socket]);
 
   let clearAll = () => {
-    socket.emit('deleteAll', 'Telephone');
+    socket.emit('deleteAll', 'OnSite');
   }
 
   const fixedIssues = (value, index) => {
-    socket.emit('telephoneDeleteCase', value);
+    socket.emit('onSiteDeleteCase', value);
     setFixedArray((oldValue) => [...oldValue, value]);
     let removed = cases.splice(index, 1);
     setCases([...cases]);
   }
 
+  // const claimedCase = (value, index) => {
+
+  // }
+
   return (
     <div>
-      <h2> Telephone Department Employee Dashboard</h2>
+      <h2> On-Site Department Employee Dashboard</h2>
       <Button onClick={clearAll} variant="danger">Clear Server</Button>
 
       <GridContainer>
@@ -138,22 +137,27 @@ function Telephone({ socket }) {
               {
                 tabName: `${cases.length} un-processed`,
                 tabContent: (
-                  <Tasks
-                    checkedIndexes={[]}
-                    tasksIndexes={cases}
-
-                    tasks={cases} // array in here
-                    socket={socket}
-                    fixedIssues={fixedIssues}
-
-                  />
+                  <Table>
+                    <TableBody>
+                      {cases.map((value, index) => {
+                        return (
+                          <TableRow>
+                            <TableCell><strong class="font-weight-bold">{index + 1}</strong></TableCell>
+                            <TableCell><strong class="font-weight-bold">Customer Name</strong> <br /> {value.obj.service.customerName}<br /><small style={{ color: "gray" }}>{value.obj.time}</small></TableCell>
+                            <TableCell><strong class="font-weight-bold">Subject</strong> <br /> {value.obj.service.subject}</TableCell>
+                            <Button color="cyan" appearance="primary">Claim</Button>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
                 )
               },
             ]} />
         </GridItem>
       </GridContainer>}
 
-     {fixedFlag && <GridItem xs={12} sm={12} md={6}>
+      {fixedFlag && <GridItem xs={12} sm={12} md={6}>
         <Card>
           <CardHeader color="success">
             <h4>Fixed Cases</h4>
@@ -165,11 +169,11 @@ function Telephone({ socket }) {
                   return (
                     <TableRow>
                       <TableCell><strong class="font-weight-bold">{index + 1}</strong></TableCell>
-                      <TableCell><strong class="font-weight-bold">Customer Name</strong> <br /> {value.obj.service.customerName}<br/><small style={{ color: "gray" }}>{value.obj.time}</small></TableCell>
+                      <TableCell><strong class="font-weight-bold">Customer Name</strong> <br /> {value.obj.service.customerName}<br /><small style={{ color: "gray" }}>{value.obj.time}</small></TableCell>
                       <TableCell><strong class="font-weight-bold">Phone Number</strong> <br /> {value.obj.service.phoneNumber}</TableCell>
                       <TableCell><strong class="font-weight-bold">Subject</strong> <br /> {value.obj.service.subject}</TableCell>
                       <TableCell><strong class="font-weight-bold">Description</strong> <br /> {value.obj.service.description}</TableCell>
-                      </TableRow>
+                    </TableRow>
                   );
                 })}
               </TableBody>
@@ -181,89 +185,4 @@ function Telephone({ socket }) {
   );
 }
 
-export default Telephone;
-
-
-
-
-
-
-
-// {fixedFlag && <Col xs={6}>
-// <Table striped bordered hover striped bordered hover variant="success">
-//   <tbody>
-//     {fixedArray.map((value, index) => {
-//       return (
-//         <tr>
-//           <th>{index + 1}</th>
-//           <td><strong class="font-weight-bold">Customer Name</strong> <br /> {value.obj.service.customerName}</td>
-//           <td><strong class="font-weight-bold">Phone Number</strong> <br /> {value.obj.service.phoneNumber}</td>
-//           <td><strong class="font-weight-bold">Subject</strong> <br /> {value.obj.service.subject}</td>
-//           <td><strong class="font-weight-bold">Description</strong> <br /> {value.obj.service.description}</td>
-//         </tr>)
-//     })}
-//   </tbody>
-// </Table>
-// </Col>}
-
-
-// import React, { useEffect, useState } from 'react';
-
-// // import './Messages.css';
-
-// function Messages({ socket }) {
-//   const [messages, setMessages] = useState({});
-
-//   useEffect(() => {
-//     const messageListener = (message) => {
-//       setMessages((prevMessages) => {
-//         const newMessages = {...prevMessages};
-//         newMessages[message.id] = message;
-//         return newMessages;
-//       });
-//     };
-
-//     const deleteMessageListener = (messageID) => {
-//       setMessages((prevMessages) => {
-//         const newMessages = {...prevMessages};
-//         delete newMessages[messageID];
-//         return newMessages;
-//       });
-//     };
-
-//     socket.on('telephoneNewCase', messageListener);
-//     // socket.on('deleteMessage', deleteMessageListener);
-
-//     // socket.emit('getMessages');
-
-  //   return () => {
-  //     socket.off('message', messageListener);
-  //     socket.off('deleteMessage', deleteMessageListener);
-  //   };
-  // }, [socket]);
-
-//   return (
-//     <div className="message-list">
-//       {[...Object.values(messages)]
-//         .sort((a, b) => a.obj.time - b.obj.time)
-//         .map((message) => (
-//           <div
-
-//             // key={message.id}
-//             // className="message-container"
-//             // title={`Sent at ${new Date(message.time).toLocaleTimeString()}`}
-//           >
-
-//               <p>Hello</p>
-
-//             {/* <span className="user">{message.user.name}:</span>
-//             <span className="message">{message.value}</span>
-//             <span className="date">{new Date(message.time).toLocaleTimeString()}</span> */}
-//           </div>
-//         ))
-//       }
-//     </div>
-//   );
-// }
-
-// export default Messages;
+export default OnSite;
