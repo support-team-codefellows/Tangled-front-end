@@ -6,7 +6,8 @@ const initalState = {
     user: user ? JSON.parse(user) : null,
     profileImage: '',
     modal: false,
-    modalFlag: false
+    modalFlag: false,
+    userCount: 0,   
 }
 
 
@@ -32,6 +33,11 @@ function appState(state = initalState, action) {
                 ...state,
                 user: null
             };
+            case 'SET_USER_COUNT':
+                return{
+                    ...state,
+                    userCount: action.payload
+                }
     }
     return state;
 }

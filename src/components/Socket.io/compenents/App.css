@@ -1,12 +1,13 @@
 .App {
-  width: 100vw;
-  height: 100vh;
-  background: #fff;
+  width: 75vw;
+  height: 75vh;
+  background: #fafafa;
   color: #212121;
   font-family: "Open Sans", sans-serif;
   display: grid;
   place-items: center;
 }
+
 body {
   margin: 0%;
   padding: 0%;
@@ -17,6 +18,13 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  align-items: center;
+}
+h2{
+position: fixed;
+top: 150px;
+right: 150px;
+
 }
 
 .joinChatContainer h3 {
@@ -27,7 +35,7 @@ body {
   width: 210px;
   height: 40px;
   margin: 7px;
-  border: 2px solid #43a047;
+  border: 2px solid #866565;
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
@@ -41,8 +49,8 @@ body {
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
-  background: #43a047;
-  color: #fff;
+  background: #866565;
+  color: #fafafa;
   cursor: pointer;
 }
 
@@ -61,14 +69,14 @@ body {
 .chat-window .chat-header {
   height: 45px;
   border-radius: 6px;
-  background: #263238;
+  background: #96908a;
   position: relative;
   cursor: pointer;
 }
 .chat-window .chat-header p {
   display: block;
   padding: 0 1em 0 2em;
-  color: #fff;
+  color: #fafafa;
   font-weight: 700;
   line-height: 45px;
 }
@@ -76,8 +84,8 @@ body {
 .chat-window .chat-body {
   height: calc(450px - (45px + 70px));
   border: 1px solid #263238;
-  background: #fff;
-
+  background: #fafafa;
+  border-radius: 6px;
   position: relative;
 }
 .chat-window .chat-body .message-container {
@@ -101,8 +109,8 @@ body {
   height: auto;
   min-height: 40px;
   max-width: 120px;
-  background-color: #43a047;
-  border-radius: 5px;
+  background-color: #866565;
+  border-radius: 5px !important;
   color: white;
   display: flex;
   align-items: center;
@@ -112,6 +120,7 @@ body {
   padding-left: 5px;
   overflow-wrap: break-word;
   word-break: break-word;
+
 }
 
 #you {
@@ -155,6 +164,7 @@ body {
   height: 40px;
   border: 1px solid #263238;
   border-top: none;
+  border-radius: 6px;
   display: flex;
 }
 
@@ -165,7 +175,7 @@ body {
   padding: 0 0.7em;
   font-size: 1em;
   border-right: 1px dotted #607d8b;
-
+  border-radius: 6px;
   outline: none;
   font-family: "Open Sans", sans-serif;
 }
@@ -180,12 +190,114 @@ body {
   background: transparent;
   outline: none;
   font-size: 25px;
+  border-radius: 6px;
   color: lightgray;
+  border-radius: 6px;
 }
 
 .chat-window .chat-footer button:hover {
-  color: #43a047;
+  color: #866565;
+  
 }
 .hide {
   opacity: 0 !important;
 }
+
+
+/* my free css */
+
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+.jt {
+  position: relative;
+  font-size: 20vmin;
+  margin-right: 200px;
+  font-family: 'Staatliches', sans-serif;
+  text-transform: uppercase;
+  font-display: swap;
+  text-shadow: 0 0 10px tomato;
+}
+
+.jt__row {
+  display: block;
+}
+.jt__row:nth-child(1) {
+  clip-path: polygon(-10% 75%, 110% 75%, 110% 110%, -10% 110%);
+}
+.jt__row:nth-child(2) {
+  clip-path: polygon(-10% 50%, 110% 50%, 110% 75.3%, -10% 75.3%);
+}
+.jt__row:nth-child(3) {
+  clip-path: polygon(-10% 25%, 110% 25%, 110% 50.3%, -10% 50.3%);
+}
+.jt__row:nth-child(4) {
+  clip-path: polygon(-10% 0%, 110% 0%, 110% 25.3%, -10% 25.3%);
+}
+
+.jt__row.jt__row--sibling {
+  position: absolute;
+  top: 0;
+  left: 0;
+  user-select: none;
+  witdh:800px;
+}
+
+.jt__text {
+  display: block;
+  transform-origin: bottom left;
+  animation: moveIn 2s 0s cubic-bezier(.36,0,.06,1) alternate infinite ;
+}
+.jt__row:nth-child(1) .jt__text {
+  transform: translateY(-0.1em);
+}
+.jt__row:nth-child(2) .jt__text {
+  transform: translateY(-0.3em) scaleY(1.1);
+}
+.jt__row:nth-child(3) .jt__text {
+  transform: translateY(-0.5em) scaleY(1.2) ;
+}
+.jt__row:nth-child(4) .jt__text {
+  transform: translateY(-0.7em) scaleY(1.3) ;
+}
+.jt__row:nth-child(5) .jt__text {
+  transform: translateY(-0.9em) scaleY(1.4) ;
+}
+.jt__row:nth-child(6) .jt__text {
+  transform: translateY(-1.1em) scaleY(1.5) ;
+}
+
+@keyframes moveIn {
+  50%, 100% { 
+    transform: translateY(0em)
+  }
+  0%   { 
+  opacity: 0; 
+  filter: blur(10px);
+  
+  }
+  100% { 
+  opacity: 1; 
+  filter: blur(0px);
+  }
+}
+
+
+
+.debug .jt__row:nth-child(even) {
+  color: black;
+  background: white;
+}
+.debug .jt__row:nth-child(odd) {
+  color: white;
+  background: black;
+}
+
+* { box-sizing: border-box }
+
+html, body {
+  margin: 0;
+  background: black;
+  color: tomato;
+  height: 100%;
+}
+

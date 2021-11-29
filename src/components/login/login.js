@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { FormErrors } from './FormErrors';
+import {connect} from 'react-redux';
 import store from '../../store';
 // import './Form.css';
 import axios from 'axios';
@@ -18,13 +19,24 @@ class Form extends Component {
     }
   }
 
+//get the state from redux and pass it to the component
+  // componentWillMount(){ 
+  //   this.setState({
+  //     userCount: store.getState().userCount
+  //   })
+  // }
   handleSubmit = async (e)=>{
     e.preventDefault();
+    let userCount= this.props.userCount + 1
+
+    
     let username = this.state.email;
     let password = this.state.password;
     let lastname =e.target.name.value;
-   
-    let url= 'http://localhost:3000/signup'
+    localStorage.setItem('userCount', JSON.stringify(userCount) )
+  
+    
+    let url= 'https://project401.herokuapp.com/signup'
     let obj={username,password,lastname};
    await  axios.post(url,obj).then((result)=>{
       console.log(result.data); 
@@ -33,6 +45,12 @@ class Form extends Component {
     type: 'SET_SHOW',
     payload : false
   })
+
+  store.dispatch({
+    type: 'SET_USER_COUNT',
+    payload : userCount
+  })
+ 
   }
 
   handleUserInput = (e) => { 
@@ -41,9 +59,8 @@ class Form extends Component {
     const value = e.target.value;
     this.setState({[name]: value},
     () => { this.validateField(name, value) });
+   
   }
-
-
 
   validateField(fieldName, value) {
   
@@ -111,74 +128,7 @@ class Form extends Component {
     )
   }
 }
+export default connect(function(state) {
+  return state
+})(Form)
 
-export default Form;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { Component } from "react";
-// import LoginModal from "react-login-modal-sm";
-
- 
-//  class Login extends Component {
-
-//   state = {
-//     showModal: false
-//   };
- 
-//   toggleModal = () => {
-//     this.setState({ showModal: !this.state.showModal });
-//   };
- 
-//   handleLoginWithFacebook = () => {
-//     // Do something when 'Login with Facebook' is clicked
-//     console.log("Login with Facebook...");
-//   };
- 
-//   handleSignupByEmail = () => {
-//     // Do something when 'Signup by email' is clicked
-//     console.log("Sign up by email...");
-//   };
- 
-//   render() {
-//     const customUsernameRegex = /^[a-zA-Z0-9_]{5,}/;
- 
-//     return (
-//       <div className="App">
-//         <h1>react-login-modal-sm example</h1>
- 
-//         <LoginModal
-//           showModal={this.state.showModal}
-//           toggleModal={this.toggleModal}
-//           onLoginFacebook={this.handleLoginWithFacebook}
-//           onSignupEmail={this.handleSignupByEmail}
-//           usernameRegex={customUsernameRegex}
-//         />
- 
-//         <button
-//           className="test-btn btn btn-primary btn-lg"
-//           onClick={this.toggleModal}
-//         >
-//           Log in
-//         </button>
-//       </div>
-//     );
-//   }
-// }
-// export default Login
