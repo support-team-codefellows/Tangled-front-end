@@ -27,6 +27,8 @@ const useStyles = makeStyles(styles);
 export default function oldTasks(props) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([...props.checkedIndexes]);
+  const[fixedArray,setFixedArray]=React.useState([])
+
   const handleToggle = (value) => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -45,8 +47,13 @@ export default function oldTasks(props) {
     [classes.tableCellRTL]: rtlActive,
   });
 
- 
-   
+ const fixedIssues=(value)=>{
+
+  setFixedArray((oldValue)=>[...oldValue, value])
+
+
+ }
+   console.log('fixedArrayfixedArray',fixedArray);
  
   return (
     <Table className={classes.table}>
@@ -79,7 +86,7 @@ export default function oldTasks(props) {
             <TableCell className={tableCellClasses}><strong class="font-weight-bold">Subject</strong> <br/> {tasks[index].obj.service.subject}</TableCell>
             <TableCell className={tableCellClasses}><strong class="font-weight-bold">Status</strong> <br/> {tasks[index].obj.service.status}</TableCell>
             <TableCell className={classes.tableActions}>
-              <Tooltip
+              {/* <Tooltip
                 id="tooltip-top"
                 title="Edit Task"
                 placement="top"
@@ -95,7 +102,7 @@ export default function oldTasks(props) {
                     }
                   />
                 </IconButton>
-              </Tooltip>
+              </Tooltip> */}
               <Tooltip
                 id="tooltip-top-start"
                 title="Remove"
@@ -110,6 +117,7 @@ export default function oldTasks(props) {
                     className={
                       classes.tableActionButtonIcon + " " + classes.close
                     }
+                    onClick={()=>fixedIssues(value)}
                   />
                 </IconButton>
               </Tooltip>
