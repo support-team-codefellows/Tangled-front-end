@@ -67,9 +67,7 @@ class Form extends Component {
     let fieldValidationErrors = this.state.formErrors;
     let emailValid = this.state.emailValid;
     let passwordValid = this.state.passwordValid;
-    // console.log(`Email ${emailValid}`);
-    // console.log(`password ${passwordValid}`);
-
+ 
 
     switch(fieldName) {
       case 'email':
@@ -99,7 +97,7 @@ class Form extends Component {
   
   render () {
     return (
-      <form className="demoForm" onSubmit={this.handleSubmit}>
+      <form  onSubmit={this.handleSubmit}>
          
           <label htmlFor="">Username</label>
           <input type="text"  className="form-control" name="name"

@@ -95,7 +95,7 @@ class SignInForm extends Component {
   
   render () {
     return (
-      <form className="demoForm" onSubmit={this.handleSubmit}>
+      <form  onSubmit={this.handleSubmit}>
          
           <label htmlFor="">Username</label>
           <input type="text"  className="form-control" name="name"
