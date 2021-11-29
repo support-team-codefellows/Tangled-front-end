@@ -34,7 +34,7 @@ function Customer() {
     console.log('inputField', inputField);
     socket.emit('customerFrontEvent', inputField);
     setShowNotification(true)
-    setTimeout(()=>{setShowNotification(false)}, 2000);
+    setTimeout(()=>{setShowNotification(false)}, 5000);
 
   }
 
@@ -91,7 +91,8 @@ function Customer() {
           </Form>
         </Drawer.Body>
       </Drawer>
-
+      <br/>
+      <br/>
       {showNotification && <div className="notification-container">
         <Notification closable type="success" header="Success">
           Thank you for contacting us! <br/>

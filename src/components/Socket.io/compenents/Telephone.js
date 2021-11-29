@@ -1,5 +1,5 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import { Badge, Button,Table } from 'react-bootstrap'
+import { Badge, Button,Table,Container} from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://localhost:3500/";
@@ -188,23 +188,27 @@ let removed=cases.splice(index,1)
        
       </GridContainer> }
 
-        {fixedFlag && <GridContainer>
+        {fixedFlag && <Container>
+          
 
 
-          <Table striped bordered hover variant="dark">
+          <Table striped bordered hover variant="success" responsive>
+          
             {fixedArray.map((value,index)=>{
               return(
                
                <tr>
-                 <th>#</th>
+                 <th>{index+1}</th>
                  <td>Customer Name: {value.obj.service.customerName}</td>
                  <td>Customer Problem: {value.obj.service.subject}</td>
                  <td>Customer Problem description: {value.obj.service.description}</td>
                </tr>)
+               
             
 
 
             })}
+            
 
 
  
@@ -216,7 +220,7 @@ let removed=cases.splice(index,1)
 
 
 
-      </GridContainer>
+      </Container>
 
 
       }
