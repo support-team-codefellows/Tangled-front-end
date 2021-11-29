@@ -27,7 +27,6 @@ const useStyles = makeStyles(styles);
 export default function oldTasks(props) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([...props.checkedIndexes]);
- 
 
   const handleToggle = (value) => {
     const currentIndex = checked.indexOf(value);
@@ -38,34 +37,24 @@ export default function oldTasks(props) {
       newChecked.splice(currentIndex, 1);
     }
     setChecked(newChecked);
-   
-    value.obj.service.status='processing'
-    socket.emit('claimCase',value)
+    value.obj.service.status = 'processing';
+    socket.emit('claimCase', value);
   };
-  const { tasksIndexes, tasks, rtlActive,socket,fixedIssues } = props;
+  const { tasksIndexes, tasks, rtlActive, socket, fixedIssues } = props;
   const tableCellClasses = classnames(classes.tableCell, {
     [classes.tableCellRTL]: rtlActive,
   });
 
- 
- 
   return (
     <Table className={classes.table}>
       <TableBody>
-        {tasksIndexes.map((value,index) => (
+        {tasksIndexes.map((value, index) => (
           <TableRow key={value} className={classes.tableRow}>
             <TableCell className={tableCellClasses}>
-
-
-
-              
               <Checkbox
                 checked={checked.indexOf(value) !== -1}
                 tabIndex={-1}
-                onClick={() => handleToggle(value)
-                        
-                
-                }
+                onClick={() => handleToggle(value)}
                 checkedIcon={<Check className={classes.checkedIcon} />}
                 icon={<Check className={classes.uncheckedIcon} />}
                 classes={{
@@ -74,29 +63,12 @@ export default function oldTasks(props) {
                 }}
               />
             </TableCell>
-           
-            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Customer Name</strong> <br/> {tasks[index].obj.service.customerName}</TableCell>
-            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Phone Number</strong> <br/> {tasks[index].obj.service.phoneNumber}</TableCell>
-            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Subject</strong> <br/> {tasks[index].obj.service.subject}</TableCell>
-            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Status</strong> <br/> {tasks[index].obj.service.status}</TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Customer Name</strong> <br /> {tasks[index].obj.service.customerName} <br /> <small style={{ color: "gray" }}>{value.obj.time}</small></TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Phone Number</strong> <br /> {tasks[index].obj.service.phoneNumber} <br /> </TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Subject</strong> <br /> {tasks[index].obj.service.subject} <br /></TableCell>
+            <TableCell className={tableCellClasses}><strong class="font-weight-bold">Status</strong> <br /> {tasks[index].obj.service.status} <br /></TableCell>
+            {tasks[index].obj.service.status === 'processing' && 
             <TableCell className={classes.tableActions}>
-              {/* <Tooltip
-                id="tooltip-top"
-                title="Edit Task"
-                placement="top"
-                classes={{ tooltip: classes.tooltip }}
-              >
-                <IconButton
-                  aria-label="Edit"
-                  className={classes.tableActionButton}
-                >
-                  <Edit
-                    className={
-                      classes.tableActionButtonIcon + " " + classes.edit
-                    }
-                  />
-                </IconButton>
-              </Tooltip> */}
               <Tooltip
                 id="tooltip-top-start"
                 title="Remove"
@@ -111,11 +83,11 @@ export default function oldTasks(props) {
                     className={
                       classes.tableActionButtonIcon + " " + classes.close
                     }
-                    onClick={()=>fixedIssues(value,index)}
+                    onClick={() => fixedIssues(value, index)}
                   />
                 </IconButton>
               </Tooltip>
-            </TableCell>
+            </TableCell> } 
           </TableRow>
         ))}
       </TableBody>

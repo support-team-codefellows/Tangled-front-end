@@ -32,7 +32,7 @@ export default function app() {
 
   useEffect(() => {
     // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
-    const newSocket = io(`http://localhost:3500/`);
+    const newSocket = io(`https://project401.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);

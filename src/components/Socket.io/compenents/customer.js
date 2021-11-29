@@ -12,7 +12,7 @@ function Customer() {
 
   useEffect(() => {
     // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
-    const newSocket = io(`http://localhost:3500/`);
+    const newSocket = io(`https://project401.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
@@ -40,8 +40,8 @@ function Customer() {
 
   return (
     <Container>
-      <br /><br />Submit your problem down below: <br /><br />
-
+      <h2>Customer Portal</h2><br/><br/>
+      <p>Click the following button to submit an issue:</p><br/>
       <Button onClick={() => setOpen(true)}> Click </Button>
 
       <Drawer size='lg' placement='right' open={open} onClose={() => setOpen(false)}>
@@ -72,9 +72,9 @@ function Customer() {
                 value={inputField.subject} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="floatingSelectGrid" >
-              <Form.Label>Department</Form.Label>
+              <Form.Label>Department</Form.Label> {'   '}
               <Form.Select size="lg" aria-label="Default select example" id="department" name="department" onChange={inputsHandler}>
-                <option>....</option>
+                <option value="">....</option>
                 <option value="OnSite">OnSite</option>
                 <option value="Telephone">Telephone</option>
                 <option value="LiveChat">LiveChat</option>
@@ -86,7 +86,7 @@ function Customer() {
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
 
-            <Button variant="dark" onClick={submitButton}>Submit</Button>
+            <Button variant="info" onClick={submitButton}>Submit</Button>
 
           </Form>
         </Drawer.Body>
