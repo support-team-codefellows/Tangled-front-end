@@ -10,6 +10,7 @@ function SocketApp() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
+    // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
     const newSocket = io(`http://localhost:3500/`);
     setSocket(newSocket);
     return () => newSocket.close();

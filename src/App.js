@@ -12,10 +12,7 @@ import {
 import Customer from './components/Socket.io/compenents/customer';
 import io from 'socket.io-client'
 import Telephone from './components/Socket.io/compenents/Telephone';
-// import Customer from './components/Socket.io/compenents/customer'
-
 import SocketApp from 'components/Socket.io/sockt.io';
-
 
 export default function app() {
   const [logged, setLogged] = useState(false);
@@ -34,15 +31,11 @@ export default function app() {
   console.log(' this is the log ', logged);
 
   useEffect(() => {
-    // 
-    // https://project401.herokuapp.com/
+    // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
     const newSocket = io(`http://localhost:3500/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
-
-
-
 
   return (
     <>

@@ -78,6 +78,7 @@ function Telephone({ socket }) {
 
     socket.on("processingStatus", (data) => {
       console.log('datadatadatadatadatadata',data);
+      socket.emit("claimedUserCase", "hi");
     }
 
     
