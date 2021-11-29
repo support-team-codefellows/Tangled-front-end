@@ -27,7 +27,7 @@ const useStyles = makeStyles(styles);
 export default function oldTasks(props) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([...props.checkedIndexes]);
-  const[fixedArray,setFixedArray]=React.useState([])
+ 
 
   const handleToggle = (value) => {
     const currentIndex = checked.indexOf(value);
@@ -42,18 +42,12 @@ export default function oldTasks(props) {
     value.obj.service.status='processing'
     socket.emit('claimCase',value)
   };
-  const { tasksIndexes, tasks, rtlActive,socket } = props;
+  const { tasksIndexes, tasks, rtlActive,socket,fixedIssues } = props;
   const tableCellClasses = classnames(classes.tableCell, {
     [classes.tableCellRTL]: rtlActive,
   });
 
- const fixedIssues=(value)=>{
-
-  setFixedArray((oldValue)=>[...oldValue, value])
-
-
- }
-   console.log('fixedArrayfixedArray',fixedArray);
+ 
  
   return (
     <Table className={classes.table}>
@@ -117,7 +111,7 @@ export default function oldTasks(props) {
                     className={
                       classes.tableActionButtonIcon + " " + classes.close
                     }
-                    onClick={()=>fixedIssues(value)}
+                    onClick={()=>fixedIssues(value,index)}
                   />
                 </IconButton>
               </Tooltip>

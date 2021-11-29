@@ -1,5 +1,5 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import { Badge, Button } from 'react-bootstrap'
+import { Badge, Button,Table } from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
 import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://localhost:3500/";
@@ -25,7 +25,7 @@ import BugReport from "@material-ui/icons/BugReport";
 import Code from "@material-ui/icons/Code";
 import Cloud from "@material-ui/icons/Cloud";
 // core components
-import Table from "components/Table/Table.js";
+// import Table from "components/Table/Table.js";
 import Tasks from "../../Tasks/oldTask";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 
@@ -43,11 +43,23 @@ function Telephone({ socket }) {
   let [newCasesFlag, setNewCasesFlag]=useState(false);
   let [cases,setCases ] = useState([])
   let [counter,setCounter ] = useState([])
+  // let [newArray,setNewArray]=useState([])
+  let [fixedFlag, setfixedFlag]=useState(false);
+  const[fixedArray,setFixedArray]=React.useState([])
 
   let newCasesHandler = () => {
     setSum(0);
     setNewCasesFlag(true);
     setCounter([])
+    setfixedFlag(false);
+  }
+
+  let flagsHandeler=()=>{
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    setNewCasesFlag(false);
+    setfixedFlag(true);
+    console.log('fixedFlag',fixedFlag);
+    console.log('0000000',fixedArray);
   }
 
   useEffect(() => {
@@ -81,6 +93,25 @@ function Telephone({ socket }) {
     socket.emit('deleteAll', 'Telephone');
   }
 
+
+  const fixedIssues=(value,index)=>{
+
+    socket.emit('telephoneDeleteCase',value)
+
+    setFixedArray((oldValue)=>[...oldValue, value]);
+let removed=cases.splice(index,1)
+    setCases([...cases])
+  
+  
+   }
+     console.log('fixedArrayfixedArray',fixedArray);
+
+     console.log('setNewCasesFlag',newCasesFlag);
+     console.log('fixedFlag',fixedFlag);
+
+
+
+
   return (
     <div>
       <Button onClick={clearAll} variant="danger">Clear Server</Button>
@@ -105,31 +136,17 @@ function Telephone({ socket }) {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p>Followers</p>
-              <h3>+245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div>
-                <Update />
-                Under Processing
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
+        
+
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="success" stats icon>
-              <CardIcon color="success">
+            {/* newCasesFlag */}
+              <CardIcon color="success" style={{ cursor: "pointer"} }  onClick={flagsHandeler} >
+             
                 <Store />
               </CardIcon>
-              <p>Revenue</p>
-              <h3>$34,245</h3>
+            
             </CardHeader>
             <CardFooter stats>
               <div>
@@ -140,6 +157,8 @@ function Telephone({ socket }) {
           </Card>
         </GridItem>
       </GridContainer>
+
+
 
       {newCasesFlag && <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
@@ -156,47 +175,77 @@ function Telephone({ socket }) {
                     
                     tasks={cases} // array in here
                     socket={socket}
+                    fixedIssues={fixedIssues}
+
                   />
                 ),
               },
-              // {
-              //   tabName: "Claimed",
-              //   tabContent: (
-              //     <Tasks
-              //       checkedIndexes={[]}
-              //       tasksIndexes={[]}
-              //       tasks={website}
-              //     />
-              //   ),
-              // },
-              // {
-              //   tabName: "Fixed",
-              //   tabContent: (
-              //     <Tasks
-              //       checkedIndexes={[]}
-              //       tasksIndexes={[]}
-              //       tasks={server}
-              //     />
-              //   ),
-              // },
+            
             ]}
           />
         </GridItem>
-        {/* {claimedCase && <GridItem xs={12} sm={12} md={6}>
-          <Card>
-            <CardHeader color="warning">
-              <h4>{claimedCase.subject}</h4>
-              <p>{claimedCase.customerName}</p>
-            </CardHeader>
-            <CardBody>{claimedCase.description}</CardBody>
-          </Card>
-        </GridItem>} */}
+       
       </GridContainer> }
+
+        {fixedFlag && <GridContainer>
+
+
+          <Table striped bordered hover variant="dark">
+            {fixedArray.map((value,index)=>{
+              return(
+               
+               <tr>
+                 <th>#</th>
+                 <td>Customer Name: {value.obj.service.customerName}</td>
+                 <td>Customer Problem: {value.obj.service.subject}</td>
+                 <td>Customer Problem description: {value.obj.service.description}</td>
+               </tr>)
+            
+
+
+            })}
+
+
+ 
+  
+</Table>
+          
+      
+
+
+
+
+      </GridContainer>
+
+
+      }
     </div>
   );
 }
 
 export default Telephone;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // import React, { useEffect, useState } from 'react';
 
