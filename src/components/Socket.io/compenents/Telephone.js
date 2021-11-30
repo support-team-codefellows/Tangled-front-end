@@ -71,11 +71,10 @@ function Telephone({ socket }) {
       setSum(sum++);
     });
 
-    socket.on("processingStatus", (data) => {
-      console.log('datadatadatadatadatadata', data);
-      socket.emit("claimedUserCase", "hi");
-      socket.emit("claimCase", "hi");
-    })
+    // socket.on("processingStatus", (data) => {
+    //   socket.emit("claimCase", data);
+    //   console.log(data);
+    // })
   }, [socket]);
 
   let clearAll = () => {

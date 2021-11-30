@@ -22,7 +22,9 @@ function Customer() {
 
   useEffect(() => {
     // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    //https://tangled-backend.herokuapp.com/
+    
+    const newSocket = io(`https://tangled-backend.herokuapp.com/`, { transports: ['websocket', 'polling', 'flashsocket'] });
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
@@ -48,12 +50,10 @@ function Customer() {
   }
 
   if (socket) {
-    //   socket.on('claimCase', (payload) => {
-    //     console.log('telephone', payload);
+    // socket.on('claimCase', (payload) => {
     //     setTelephoneClaimed(true);
     //   });
     socket.on('serverOnSiteResponse', (appointment) => {
-      console.log('this is it: ', appointment);
       setOnSiteClaimed(true);
       setOnSiteResponse(appointment);
     });
@@ -120,13 +120,31 @@ function Customer() {
         </Notification>
       </div>}
 
-      {setOnSiteClaimed && <GridItem xs={12} sm={6} md={5}>
+      {!onSiteClaimed && <GridItem xs={12} sm={6} md={5}>
+        <Card>
+          <CardHeader color="success"> Response </CardHeader>
+          <CardBody>
+            <strong class="font-weight-bold">Status: </strong>Your ticket hasn't been claimed yet<br />
+          </CardBody>
+        </Card>
+      </GridItem>}
+
+      {onSiteClaimed && <GridItem xs={12} sm={6} md={5}>
         <Card>
           <CardHeader color="success"> Response </CardHeader>
           <CardBody>
             <strong class="font-weight-bold">Day: </strong>{onSiteResponse.day}<br />
             <strong class="font-weight-bold">Hour: </strong>{onSiteResponse.hour}<br />
             <strong class="font-weight-bold">Notes: </strong>{onSiteResponse.notes}<br />
+          </CardBody>
+        </Card>
+      </GridItem>}
+
+      {telephoneClaimed && <GridItem xs={12} sm={6} md={5}>
+        <Card>
+          <CardHeader color="success"> Response </CardHeader>
+          <CardBody>
+            <strong class="font-weight-bold">Status: </strong>Your ticket has been claimed<br />
           </CardBody>
         </Card>
       </GridItem>}
