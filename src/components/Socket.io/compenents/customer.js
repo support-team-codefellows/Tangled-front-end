@@ -21,10 +21,10 @@ function Customer() {
   const [onSiteResponse, setOnSiteResponse] = useState({});
 
   useEffect(() => {
-    // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
-    //https://tangled-backend.herokuapp.com/
+
     
     const newSocket = io(`https://tangled-backend.herokuapp.com/`, { transports: ['websocket', 'polling', 'flashsocket'] });
+
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
