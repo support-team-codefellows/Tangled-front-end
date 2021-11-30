@@ -11,6 +11,8 @@ import Customer from './components/Socket.io/compenents/customer';
 import io from 'socket.io-client'
 import Telephone from './components/Socket.io/compenents/Telephone';
 
+
+
 export default function newApp() {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState();
@@ -28,7 +30,7 @@ export default function newApp() {
   console.log(' this is the log ', logged);
 
   useEffect(() => {
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    const newSocket = io(`https://tangled-backend.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
@@ -37,6 +39,7 @@ export default function newApp() {
     <>
           <header className="app-header">React Chat</header>
           <Customer />
+          
           <div className="App">
             {socket ? (
               <div className="chat-container">

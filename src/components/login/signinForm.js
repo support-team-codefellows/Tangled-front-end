@@ -25,7 +25,7 @@ class SignInForm extends Component {
     let username = this.state.email;
     let password = this.state.password;
     let lastname =e.target.name.value;
-    let url= 'http://localhost:3000/sign-in'
+    let url= 'https://tangled-backend.herokuapp.com/sign-in'
   await axios.post(url,{},{
     auth: {
       username: username,
@@ -95,7 +95,7 @@ class SignInForm extends Component {
   
   render () {
     return (
-      <form className="demoForm" onSubmit={this.handleSubmit}>
+      <form  onSubmit={this.handleSubmit}>
          
           <label htmlFor="">Username</label>
           <input type="text"  className="form-control" name="name"
