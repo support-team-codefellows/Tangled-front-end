@@ -30,7 +30,7 @@ import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 import RTLPage from "views/RTLPage/RTLPage.js";
-import ChatForm from "../src/components/Socket.io/compenents/ChatForm";
+import ChatForm from "./components/Socket.io/compenents/chat/ChatForm";
 const dashboardRoutes = [
   {
     path: "/dashboard",

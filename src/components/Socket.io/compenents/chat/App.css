@@ -7,24 +7,19 @@
   display: grid;
   place-items: center;
 }
-
-body {
+ body {
   margin: 0%;
   padding: 0%;
-}
+} 
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700");
 
-.joinChatContainer {
+ .joinChatContainer {
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
-}
-h2 {
-  position: fixed;
-  top: 150px;
-  right: 150px;
-}
+}  
+
 
 .joinChatContainer h3 {
   font-size: 2.5rem;

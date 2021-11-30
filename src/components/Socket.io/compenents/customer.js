@@ -11,8 +11,8 @@ function Customer() {
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
-    // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    // Heroku: https://tangled-backend.herokuapp.com/   Localhost: http://localhost:3500/
+    const newSocket = io(`https://tangled-backend.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);

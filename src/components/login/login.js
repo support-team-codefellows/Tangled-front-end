@@ -36,7 +36,7 @@ class Form extends Component {
     localStorage.setItem('userCount', JSON.stringify(userCount) )
   
     
-    let url= 'https://project401.herokuapp.com/signup'
+    let url= 'https://tangled-backend.herokuapp.com/signup'
     let obj={username,password,lastname};
    await  axios.post(url,obj).then((result)=>{
       console.log(result.data); 

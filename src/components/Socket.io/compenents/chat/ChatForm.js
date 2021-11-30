@@ -1,12 +1,12 @@
 import "./App.css";
 import io from "socket.io-client";
 import { useState } from "react";
-import Chat from "./Chat";
+import Chat from  './Chat';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
 
-const socket = io.connect("https://project401.herokuapp.com/");
+const socket = io.connect("https://tangled-backend.herokuapp.com/");
 
 function chatFrom() {
   const [username, setUsername] = useState("");

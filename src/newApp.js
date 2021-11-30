@@ -28,7 +28,7 @@ export default function newApp() {
   console.log(' this is the log ', logged);
 
   useEffect(() => {
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    const newSocket = io(`https://tangled-backend.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);

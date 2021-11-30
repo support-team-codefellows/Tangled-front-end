@@ -5,7 +5,7 @@ import Footer from './components/Footer/Footer.js';
 import React, { useState, useEffect } from 'react';
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
-import ChatForm from "./components/Socket.io/compenents/ChatForm"
+import ChatForm from "./components/Socket.io/compenents/chat/ChatForm"
 import {
   BrowserRouter as Router,
   Switch,
@@ -28,14 +28,14 @@ export default function app() {
       setLogged(true);
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
-      console.log(' this is the log ', foundUser);
+      
     }
   }, []);
-  console.log(' this is the log ', logged);
+
 
   useEffect(() => {
-    // Heroku: https://project401.herokuapp.com/   Localhost: http://localhost:3500/
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    // Heroku: https://tangled-backend.herokuapp.com/   Localhost: http://localhost:3500/
+    const newSocket = io(`https://tangled-backend.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
@@ -51,10 +51,10 @@ export default function app() {
           <Route path="/chatapp" component={ChatForm} />
           <Route path="/rtl" component={RTL} />
 
-          <Redirect from="/" to="/admin/dashboard" />
           </> : <p>Hi</p>}
+          <Redirect from="/" to="/admin/dashboard" />
         </Switch>
       </Router>
-    </>
+      </>
   );
 }
