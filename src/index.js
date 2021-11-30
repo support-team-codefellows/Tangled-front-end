@@ -1,18 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from './App'
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './store';
 import "assets/css/material-dashboard-react.css?v=1.10.0";
 const MainApp = function () {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <App/>
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   )
 }
