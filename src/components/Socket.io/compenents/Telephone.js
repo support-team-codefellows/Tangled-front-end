@@ -36,11 +36,11 @@ function Telephone({ socket }) {
   let [claimedCase, setClaimedCase] = useState(null);
   let [sum, setSum] = useState(0);
   let [newCasesFlag, setNewCasesFlag] = useState(false);
-  let [cases, setCases] = useState([])
-  let [counter, setCounter] = useState([])
+  let [cases, setCases] = useState([]);
+  let [counter, setCounter] = useState([]);
   // let [newArray,setNewArray]=useState([])
   let [fixedFlag, setfixedFlag] = useState(false);
-  const [fixedArray, setFixedArray] = React.useState([])
+  const [fixedArray, setFixedArray] = React.useState([]);
 
   let newCasesHandler = () => {
     setSum(0);
@@ -71,10 +71,10 @@ function Telephone({ socket }) {
       setSum(sum++);
     });
 
-    socket.on("processingStatus", (data) => {
-      console.log('datadatadatadatadatadata', data);
-      socket.emit("claimedUserCase", "hi");
-    })
+    // socket.on("processingStatus", (data) => {
+    //   socket.emit("claimCase", data);
+    //   console.log(data);
+    // })
   }, [socket]);
 
   let clearAll = () => {

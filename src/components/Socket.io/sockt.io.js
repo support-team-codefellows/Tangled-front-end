@@ -8,7 +8,6 @@ import OnSite from './compenents/OnSite';
 function SocketApp() {
   const [socket, setSocket] = useState(null);
   useEffect(() => {
-    // Heroku: https://tangled-backend.herokuapp.com/   Localhost: http://localhost:3500/
     const newSocket = io(`https://tangled-backend.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
