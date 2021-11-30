@@ -1,11 +1,7 @@
 
-
-import Header from './components/Navbars/Navbar.js';
-import Footer from './components/Footer/Footer.js';
 import React, { useState, useEffect } from 'react';
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
-import ChatForm from "./components/Socket.io/compenents/chat/ChatForm"
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,13 +10,13 @@ import {
 import Customer from './components/Socket.io/compenents/customer';
 import io from 'socket.io-client'
 import Telephone from './components/Socket.io/compenents/Telephone';
-import SocketApp from 'components/Socket.io/sockt.io';
 
-export default function app() {
+
+
+export default function newApp() {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState();
   const [socket, setSocket] = useState(null);
-
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user");
@@ -28,10 +24,10 @@ export default function app() {
       setLogged(true);
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
-      
+      console.log(' this is the log ', foundUser);
     }
   }, []);
-
+  console.log(' this is the log ', logged);
 
   useEffect(() => {
     const newSocket = io(`https://tangled-backend.herokuapp.com/`);
@@ -41,19 +37,18 @@ export default function app() {
 
   return (
     <>
-      <Router>
-        <Switch>
-          {socket? 
-          <>
-          <Route path="/admin" component={Admin} />
-          <Route path="/socketApp" component={SocketApp} />
-          <Route path="/chatapp" component={ChatForm} />
-          <Route path="/rtl" component={RTL} />
-
-          </> : <p>Hi</p>}
-          <Redirect from="/" to="/admin/dashboard" />
-        </Switch>
-      </Router>
-      </>
+          <header className="app-header">React Chat</header>
+          <Customer />
+          
+          <div className="App">
+            {socket ? (
+              <div className="chat-container">
+                <Telephone socket={socket} />
+              </div>
+            ) : (
+              <div>Not Connected</div>
+            )}
+          </div>
+    </>
   );
 }

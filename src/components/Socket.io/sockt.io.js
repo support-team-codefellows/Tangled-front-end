@@ -2,35 +2,35 @@ import React, { useEffect, useState } from 'react';
 
 import Customer from './compenents/customer';
 import io from 'socket.io-client'
-
 import Telephone from './compenents/Telephone';
+import OnSite from './compenents/OnSite';
+import Container from 'react-bootstrap/Container';
 
 function SocketApp() {
-
   const [socket, setSocket] = useState(null);
-
   useEffect(() => {
-    const newSocket = io(`https://project401.herokuapp.com/`);
+    const newSocket = io(`https://tangled-backend.herokuapp.com/`);
     setSocket(newSocket);
     return () => newSocket.close();
   }, [setSocket]);
   
   return (
-    <div className="App">
+    <Container>
       <header className="app-header">
-        React Chat
+      
       </header>
-      <Customer  />
+      {/* <Customer/> */}
          
       { socket ? (
         <div className="chat-container">
           <Telephone socket={socket} />
-         
+          <OnSite socket={socket} />
         </div>
       ) : (
         <div>Not Connected</div>
       )}
-    </div>
+
+    </Container>
   );
 }
 

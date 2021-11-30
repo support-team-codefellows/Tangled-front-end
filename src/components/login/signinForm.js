@@ -1,12 +1,15 @@
 
 import React, { Component } from 'react';
 import { FormErrors } from './FormErrors';
-// import './Form.css';
+import axios from 'axios';
+import store from '../../store';
+class SignInForm extends Component {
 
-class Form extends Component {
   constructor (props) {
     super(props);
     this.state = {
+      loggedin:'',
+      Username:'',
       email: '',
       password: '',
       formErrors: {email: '', password: ''},
@@ -16,24 +19,53 @@ class Form extends Component {
     }
   }
 
-  handleUserInput = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({[name]: value},
-                  () => { this.validateField(name, value) });
 
-
-
+  handleSubmit = async (e)=>{
+    e.preventDefault();
+    let username = this.state.email;
+    let password = this.state.password;
+    let lastname =e.target.name.value;
+    let url= 'https://tangled-backend.herokuapp.com/sign-in'
+  await axios.post(url,{},{
+    auth: {
+      username: username,
+      password: password,
+    }
+  }).then((result)=>{
+    this.setState({
+      loggedin: result.data
+    });
+    const user = result.data;
+    localStorage.setItem('user', JSON.stringify(user) )
+    store.dispatch({
+      type: 'SET_USER',
+      payload: user
+    })
+    store.dispatch({
+      type: 'SET_SHOW',
+      payload : false
+    })
+  })
+ 
 
 
   }
 
-
-
+  handleUserInput = (e) => { 
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({[name]: value},
+    () => { this.validateField(name, value) });
+  }
   validateField(fieldName, value) {
+  
     let fieldValidationErrors = this.state.formErrors;
     let emailValid = this.state.emailValid;
     let passwordValid = this.state.passwordValid;
+    console.log(`Email ${emailValid}`);
+    console.log(`password ${passwordValid}`);
+
 
     switch(fieldName) {
       case 'email':
@@ -54,22 +86,22 @@ class Form extends Component {
   }
 
   validateForm() {
-    this.setState({formValid: this.state.emailValid && this.state.passwordValid});
-    // let url= ''
-//let obj={name,value}
-//axois .post(url,obj)
-//
-//return this.state 
-  }
 
+    this.setState({formValid: this.state.emailValid && this.state.passwordValid});
+  }
   errorClass(error) {
     return(error.length === 0 ? '' : 'has-error');
   }
-
+  
   render () {
     return (
-      <form className="demoForm">
-        <h2>Sign up</h2>
+      <form  onSubmit={this.handleSubmit}>
+         
+          <label htmlFor="">Username</label>
+          <input type="text"  className="form-control" name="name"
+            placeholder="Username"/>
+      
+     
         <div className="panel panel-default">
           <FormErrors formErrors={this.state.formErrors} />
         </div>
@@ -85,15 +117,15 @@ class Form extends Component {
           <input type="password" className="form-control" name="password"
             placeholder="Password"
             value={this.state.password}
-            onChange={this.handleUserInput}  />
+            onChange={this.handleUserInput}/>
         </div>
-        <button type="submit" className="btn btn-primary" disabled={!this.state.formValid}>Sign up</button>
+        <button type="submit" className="btn btn-primary" disabled={!this.state.formValid}>Sign in</button>
       </form>
     )
   }
 }
 
-export default Form;
+export default SignInForm;
 
 
 

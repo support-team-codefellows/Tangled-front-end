@@ -1,36 +1,31 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import { Badge, Button } from 'react-bootstrap'
+import { Badge, Button, Col } from 'react-bootstrap'
 import React, { useEffect, useState } from "react";
-import socketIOClient from "socket.io-client";
-const ENDPOINT = "https://project401.herokuapp.com/";
+const ENDPOINT = "http://localhost:3500/";
 
 import Icon from "@material-ui/core/Icon";
 import GridItem from "components/Grid/GridItem";
 import GridContainer from "components/Grid/GridContainer.js";
-import Danger from "components/Typography/Danger.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CardBody from "components/Card/CardBody.js";
-
-import Store from "@material-ui/icons/Store";
-import Warning from "@material-ui/icons/Warning";
+import "./socketio.css";
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
 
-import Accessibility from "@material-ui/icons/Accessibility";
-import BugReport from "@material-ui/icons/BugReport";
-import Code from "@material-ui/icons/Code";
-import Cloud from "@material-ui/icons/Cloud";
 // core components
-import Table from "components/Table/Table.js";
-import Tasks from "components/Tasks/Tasks.js";
+// import Table from "components/Table/Table.js";
+import Tasks from "../../Tasks/oldTask";
 import CustomTabs from "components/CustomTabs/CustomTabs.js";
 
-import { bugs, website, server } from "variables/general.js";
-import { WatchOutlined } from '@material-ui/icons';
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>oOo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
@@ -40,51 +35,69 @@ function Telephone({ socket }) {
   let [caseSubjects, setCaseSubjects] = useState([]);
   let [claimedCase, setClaimedCase] = useState(null);
   let [sum, setSum] = useState(0);
-  let [newCasesFlag, setNewCasesFlag]=useState(false);
-  let [cases,setCases ] = useState([])
-  let [counter,setCounter ] = useState([])
+  let [newCasesFlag, setNewCasesFlag] = useState(false);
+  let [cases, setCases] = useState([]);
+  let [counter, setCounter] = useState([]);
+  // let [newArray,setNewArray]=useState([])
+  let [fixedFlag, setfixedFlag] = useState(false);
+  const [fixedArray, setFixedArray] = React.useState([]);
 
   let newCasesHandler = () => {
     setSum(0);
     setNewCasesFlag(true);
     setCounter([])
+    setfixedFlag(false);
+  }
+
+  let flagsHandeler = () => {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    setNewCasesFlag(false);
+    setfixedFlag(true);
+    console.log('fixedFlag', fixedFlag);
+    console.log('0000000', fixedArray);
   }
 
   useEffect(() => {
     setTimeout(() => {
-      socket.emit('getAll','Telephone')
-    }, 10000);
+      socket.emit('getAll', 'Telephone')
+    }, 100);
 
-   
+
     socket.on("telephoneIssue", (data) => {
-      
-      setCases(oldArray => [data,...oldArray ]);
 
-      setCounter( oldArray => [data,...oldArray ]);
+      setCases(oldArray => [data, ...oldArray]);
+
+      setCounter(oldArray => [data, ...oldArray]);
       setSum(sum++);
     });
-  }, [socket]);
 
- 
-  console.log('cases',cases);
-  console.log('caseSubjects',caseSubjects);
+    // socket.on("processingStatus", (data) => {
+    //   socket.emit("claimCase", data);
+    //   console.log(data);
+    // })
+  }, [socket]);
 
   let clearAll = () => {
     socket.emit('deleteAll', 'Telephone');
   }
 
+  const fixedIssues = (value, index) => {
+    socket.emit('telephoneDeleteCase', value);
+    setFixedArray((oldValue) => [...oldValue, value]);
+    let removed = cases.splice(index, 1);
+    setCases([...cases]);
+  }
+
   return (
     <div>
-      <Button onClick={clearAll} variant="danger">Clear Server</Button>
-
+      <h2> Telephone Department Employee Dashboard</h2>
+          {/* <Button onClick={clearAll} variant="danger">Clear Server</Button> */}
       <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem >
           <Card>
             <CardHeader color="danger" stats icon>
-              <CardIcon color="danger"  style={{ cursor: "pointer"}}>
-                <h2 >
-                  <Badge onClick={newCasesHandler} bg="Dark">{counter.length}</Badge>
-                </h2>
+              <CardIcon color="danger" style={{ cursor: "pointer" }}>
+                <h2><Badge onClick={newCasesHandler} bg="Dark">{counter.length}</Badge></h2>
               </CardIcon>
             </CardHeader>
             <CardFooter stats>
@@ -97,31 +110,13 @@ function Telephone({ socket }) {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p>Followers</p>
-              <h3>+245</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div>
-                <Update />
-                Under Processing
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
+
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="success" stats icon>
-              <CardIcon color="success">
-                <Store />
+              <CardIcon color="success" style={{ cursor: "pointer" }} onClick={flagsHandeler} >
+                <h2><Badge onClick={newCasesHandler} bg="Dark">{fixedArray.length}</Badge></h2>
               </CardIcon>
-              <p>Revenue</p>
-              <h3>$34,245</h3>
             </CardHeader>
             <CardFooter stats>
               <div>
@@ -136,58 +131,80 @@ function Telephone({ socket }) {
       {newCasesFlag && <GridContainer>
         <GridItem xs={12} sm={12} md={6}>
           <CustomTabs
-            title="Telephone Department Cases"
-            headerColor="primary"
+            title="Cases"
+            headerColor="info"
             tabs={[
               {
-                tabName: "New",
+                tabName: `${cases.length} un-processed`,
                 tabContent: (
                   <Tasks
                     checkedIndexes={[]}
                     tasksIndexes={cases}
-                    
+
                     tasks={cases} // array in here
+                    socket={socket}
+                    fixedIssues={fixedIssues}
+
                   />
-                ),
+                )
               },
-              // {
-              //   tabName: "Claimed",
-              //   tabContent: (
-              //     <Tasks
-              //       checkedIndexes={[]}
-              //       tasksIndexes={[]}
-              //       tasks={website}
-              //     />
-              //   ),
-              // },
-              // {
-              //   tabName: "Fixed",
-              //   tabContent: (
-              //     <Tasks
-              //       checkedIndexes={[]}
-              //       tasksIndexes={[]}
-              //       tasks={server}
-              //     />
-              //   ),
-              // },
-            ]}
-          />
+            ]} />
         </GridItem>
-        {/* {claimedCase && <GridItem xs={12} sm={12} md={6}>
-          <Card>
-            <CardHeader color="warning">
-              <h4>{claimedCase.subject}</h4>
-              <p>{claimedCase.customerName}</p>
-            </CardHeader>
-            <CardBody>{claimedCase.description}</CardBody>
-          </Card>
-        </GridItem>} */}
-      </GridContainer> }
-    </div>
+      </GridContainer>}
+
+     {fixedFlag && <GridItem xs={12} sm={12} md={6}>
+        <Card>
+          <CardHeader color="success">
+            <h4>Fixed Cases</h4>
+          </CardHeader>
+          <CardBody>
+            <Table>
+              <TableBody>
+                {fixedArray.map((value, index) => {
+                  return (
+                    <TableRow>
+                      <TableCell><strong class="font-weight-bold">{index + 1}</strong></TableCell>
+                      <TableCell><strong class="font-weight-bold">Customer Name</strong> <br /> {value.obj.service.customerName}<br/><small style={{ color: "gray" }}>{value.obj.time}</small></TableCell>
+                      <TableCell><strong class="font-weight-bold">Phone Number</strong> <br /> {value.obj.service.phoneNumber}</TableCell>
+                      <TableCell><strong class="font-weight-bold">Subject</strong> <br /> {value.obj.service.subject}</TableCell>
+                      <TableCell><strong class="font-weight-bold">Description</strong> <br /> {value.obj.service.description}</TableCell>
+                      </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </CardBody>
+        </Card>
+      </GridItem>}
+    </div >
   );
 }
 
 export default Telephone;
+
+
+
+
+
+
+
+// {fixedFlag && <Col xs={6}>
+// <Table striped bordered hover striped bordered hover variant="success">
+//   <tbody>
+//     {fixedArray.map((value, index) => {
+//       return (
+//         <tr>
+//           <th>{index + 1}</th>
+//           <td><strong class="font-weight-bold">Customer Name</strong> <br /> {value.obj.service.customerName}</td>
+//           <td><strong class="font-weight-bold">Phone Number</strong> <br /> {value.obj.service.phoneNumber}</td>
+//           <td><strong class="font-weight-bold">Subject</strong> <br /> {value.obj.service.subject}</td>
+//           <td><strong class="font-weight-bold">Description</strong> <br /> {value.obj.service.description}</td>
+//         </tr>)
+//     })}
+//   </tbody>
+// </Table>
+// </Col>}
+
 
 // import React, { useEffect, useState } from 'react';
 
