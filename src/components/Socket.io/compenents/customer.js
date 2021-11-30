@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Form, Button } from 'react-bootstrap';
+import { Container, Row, Form, Button} from 'react-bootstrap';
 import { io } from 'socket.io-client';
 import { Notification, toaster, Drawer } from 'rsuite';
 import "rsuite/dist/rsuite.min.css";
@@ -62,11 +62,8 @@ function Customer() {
   return (
 
 
-   
-  
-
-
     <Container>
+        <Container>
       <h2>Customer Portal</h2><br /><br />
       <p>Click the following button to submit an issue:</p><br />
       <Button onClick={() => setOpen(true)}> Click </Button><br /><br /><br />
@@ -118,7 +115,7 @@ function Customer() {
           </Form>
         </Drawer.Body>
       </Drawer>
-
+      </Container>
       {showNotification && <div className="notification-container">
         <Notification closable type="success" header="Success">
           Thank you for contacting us! <br />
@@ -155,8 +152,9 @@ function Customer() {
         </Card>
       </GridItem>}
       <Dashboard/>
-    </Container >
 
+    </Container >
+  
   )
 }
 
