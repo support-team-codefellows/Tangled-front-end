@@ -23,7 +23,7 @@ export default function Footer(props) {
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a href="#https://goo.gl/maps/php9iiBysbr8byBTA" className={classes.block}>
+              <a href="https://www.google.com/moon/" className={classes.block}>
                 Company
               </a>
             </ListItem>

@@ -45,16 +45,6 @@ const useStyles = makeStyles(styles);
 function Dashboard(props) {
   const userCount = localStorage.getItem('userCount')
 
-  // useEffect(() => {
-  //   const loggedInUser = localStorage.getItem("user");
-  //   if (loggedInUser) {
-  //     setLogged(true);
-  //     const foundUser = JSON.parse(loggedInUser);
-  //     setUser(foundUser);
-  //     console.log(' this is the log ', foundUser);
-  //   }
-  // }, []);
-  // console.log(' this is the log ', logged);
   const classes = useStyles();
   return (
     <div>
@@ -66,7 +56,7 @@ function Dashboard(props) {
                 <Store />
               </CardIcon>
               <h3 className={classes.cardTitle}>Tangled</h3>
-              <p style = {{display: 'center'}}className={classes.cardTitle}>While you can’t always physically meet customers where they’re at, you can use omni-channel feedback and multiple customer support options to allow customers to contact your support team in the way that’s most convenient for them. Customers value time and convenience, and as evidenced by Tesla’s high prices, will even pay more for it. The Tesla example highlights how when it comes to quality customer service, delivery of services can be a game-changer.</p>
+              <p style = {{display: 'center'}}className={classes.cardTitle}>While you can’t always physically meet customers where they’re at, you can use omni-channel feedback and multiple customer support options to allow customers to contact your support team in the way that’s most convenient for them. Customers value time and convenience, and as evidenced by us high prices, will even pay more for it. we are an example that highlights how when it comes to quality customer service, delivery of services can be a game-changer.</p>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -142,73 +132,7 @@ function Dashboard(props) {
           </Card>
         </GridItem>
         </GridContainer>
-        {/* <GridItem xs={12} sm={12} md={4}>
-          <Card chart>
-            <CardHeader color="danger">
-              <ChartistGraph
-                className="ct-chart"
-                data={completedTasksChart.data}
-                type="Line"
-                options={completedTasksChart.options}
-                listener={completedTasksChart.animation}
-              />
-            </CardHeader>
-            <CardBody>
-              <h4 className={classes.cardTitle}>Completed Tasks</h4>
-              <p className={classes.cardCategory}>Last Campaign Performance</p>
-            </CardBody>
-            <CardFooter chart>
-              <div className={classes.stats}>
-                <AccessTime /> campaign sent 2 days ago
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
       
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={6}>
-          <CustomTabs
-            title="Tasks:"
-            headerColor="primary"
-            tabs={[
-              {
-                tabName: "Bugs",
-                tabIcon: BugReport,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0, 3]}
-                    tasksIndexes={[0, 1, 2, 3]}
-                    tasks={bugs}
-                  />
-                ),
-              },
-              {
-                tabName: "Website",
-                tabIcon: Code,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0]}
-                    tasksIndexes={[0, 1]}
-                    tasks={website}
-                  />
-                ),
-              },
-              {
-                tabName: "Server",
-                tabIcon: Cloud,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[1]}
-                    tasksIndexes={[0, 1, 2]}
-                    tasks={server}
-                  />
-                ),
-              },
-            ]}
-          />
-        </GridItem>
-        */}
-      {/* </GridContainer> */}
     </div>
   );
 }

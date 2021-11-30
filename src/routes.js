@@ -16,6 +16,7 @@ https://jasonwatmore.com/post/2017/09/16/react-redux-user-registration-and-login
 
 */
 // @material-ui/icons
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import MarkChatUnreadIcon from '@mui/icons-material/MarkChatUnread';
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
@@ -25,12 +26,15 @@ import Language from "@material-ui/icons/Language";
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
 import SocketApp from 'components/Socket.io/compenents/customer';
+import Telephone from 'components/Socket.io/compenents/Telephone';
 import TableList from "views/TableList/TableList.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 import RTLPage from "views/RTLPage/RTLPage.js";
 import ChatForm from "./components/Socket.io/compenents/chat/ChatForm";
+import SocketEmployee from 'components/Socket.io/sockt.io';
+
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -56,6 +60,23 @@ const dashboardRoutes = [
     component: ChatForm,
     layout: "/admin",
   },
+  {
+    path: "/Employee",
+    name: "Employee",
+    rtlName: "إخطارات",
+    icon: PersonSearchIcon,
+    component: SocketEmployee,
+    layout: "/admin",
+  },
+  // {
+  //   path: "/Location",
+  //   name: "Employee",
+  //   rtlName: "إخطارات",
+  //   icon: PersonSearchIcon,
+  //   component: SocketEmployee,
+  //   layout: "/admin",
+  // },
+
   
 ];
 

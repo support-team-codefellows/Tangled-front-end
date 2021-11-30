@@ -4,13 +4,13 @@ import { Container, Row, Form, Button } from 'react-bootstrap';
 import { io } from 'socket.io-client';
 import { Notification, toaster, Drawer } from 'rsuite';
 import "rsuite/dist/rsuite.min.css";
-
+import Telephone from 'components/Socket.io/compenents/Telephone';
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CardBody from "components/Card/CardBody.js";
 import GridItem from "components/Grid/GridItem";
-
+import Dashboard from 'views/Dashboard/Dashboard';
 
 function Customer() {
   const [socket, setSocket] = useState(null);
@@ -60,12 +60,18 @@ function Customer() {
   }
 
   return (
+
+
+   
+  
+
+
     <Container>
       <h2>Customer Portal</h2><br /><br />
       <p>Click the following button to submit an issue:</p><br />
       <Button onClick={() => setOpen(true)}> Click </Button><br /><br /><br />
 
-      <Drawer size='lg' placement='right' open={open} onClose={() => setOpen(false)}>
+      <Drawer size='sm' placement='right' open={open} onClose={() => setOpen(false)}>
         <Drawer.Header>
           <Drawer.Title>Submit an Issue</Drawer.Title>
         </Drawer.Header>
@@ -148,7 +154,7 @@ function Customer() {
           </CardBody>
         </Card>
       </GridItem>}
-
+      <Dashboard/>
     </Container >
 
   )

@@ -1,13 +1,14 @@
-.App {
+ .App {
   width: 75vw;
-  height: 75vh;
+   height: 75vh; 
   background: #fafafa;
   color: #212121;
   font-family: "Open Sans", sans-serif;
   display: grid;
   place-items: center;
 }
- body {
+
+body {
   margin: 0%;
   padding: 0%;
 } 

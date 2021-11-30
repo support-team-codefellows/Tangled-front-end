@@ -1,9 +1,6 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { Badge, Form } from 'react-bootstrap';
 import React, { useEffect, useState } from "react";
-const ENDPOINT = "http://localhost:3500/";
-
-import Icon from "@material-ui/core/Icon";
 import GridItem from "components/Grid/GridItem";
 import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
@@ -27,7 +24,6 @@ import TableCell from "@material-ui/core/TableCell";
 
 import Button from 'rsuite/Button';
 import "rsuite/dist/rsuite.min.css";
-
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>oOo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 

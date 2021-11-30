@@ -11,7 +11,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CardBody from "components/Card/CardBody.js";
-
+import "./socketio.css";
 import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
@@ -91,10 +91,9 @@ function Telephone({ socket }) {
   return (
     <div>
       <h2> Telephone Department Employee Dashboard</h2>
-      <Button onClick={clearAll} variant="danger">Clear Server</Button>
-
+          {/* <Button onClick={clearAll} variant="danger">Clear Server</Button> */}
       <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem >
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger" style={{ cursor: "pointer" }}>

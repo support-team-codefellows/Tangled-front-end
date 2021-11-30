@@ -4,6 +4,7 @@ import Customer from './compenents/customer';
 import io from 'socket.io-client'
 import Telephone from './compenents/Telephone';
 import OnSite from './compenents/OnSite';
+import Container from 'react-bootstrap/Container';
 
 function SocketApp() {
   const [socket, setSocket] = useState(null);
@@ -14,7 +15,7 @@ function SocketApp() {
   }, [setSocket]);
   
   return (
-    <div className="App">
+    <Container>
       <header className="app-header">
       
       </header>
@@ -28,7 +29,8 @@ function SocketApp() {
       ) : (
         <div>Not Connected</div>
       )}
-    </div>
+
+    </Container>
   );
 }
 

@@ -5,7 +5,7 @@ import Chat from  './Chat';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Card from "components/Card/Card.js";
-
+import Container from 'react-bootstrap/Container'
 const socket = io.connect("https://tangled-backend.herokuapp.com/");
 
 function chatFrom() {
@@ -21,8 +21,11 @@ function chatFrom() {
   };
 
   return (
-    <GridContainer>
-      <GridItem xs={0} sm={6} md={12}>
+    <Container>
+
+  
+ 
+   
         <Card>
 
           <div className="App">
@@ -63,10 +66,12 @@ function chatFrom() {
             ) : (
               <Chat socket={socket} username={username} room={room} />
             )}
-          </div >
+          </div>
         </Card>
-      </GridItem>
-    </GridContainer>
+  
+
+   </Container>
+
   )
 }
 

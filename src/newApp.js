@@ -11,6 +11,8 @@ import Customer from './components/Socket.io/compenents/customer';
 import io from 'socket.io-client'
 import Telephone from './components/Socket.io/compenents/Telephone';
 
+
+
 export default function newApp() {
   const [logged, setLogged] = useState(false);
   const [user, setUser] = useState();
@@ -37,6 +39,7 @@ export default function newApp() {
     <>
           <header className="app-header">React Chat</header>
           <Customer />
+          
           <div className="App">
             {socket ? (
               <div className="chat-container">

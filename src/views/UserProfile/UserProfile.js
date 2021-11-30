@@ -53,7 +53,7 @@ function UserProfile(props) {
           <Card profile>
             <CardAvatar profile>
               <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                <img src={avatar} alt="..." />
+                <img src={'https://i.pinimg.com/736x/e5/39/33/e53933f438fcc6b93d04c77144371a58.jpg'} alt="..." />
               </a>
             </CardAvatar>
             <CardBody profile>
