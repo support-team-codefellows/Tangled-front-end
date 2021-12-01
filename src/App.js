@@ -57,3 +57,4 @@ export default function app() {
       </>
   );
 }
+export default app;
