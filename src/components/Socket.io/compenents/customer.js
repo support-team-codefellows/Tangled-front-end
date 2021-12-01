@@ -105,9 +105,14 @@ function Customer() {
               </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group  className="mb-3">
               <Form.Label>Description</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              
+              <Form.Control as="textarea" rows={3} 
+              name="description"
+              onChange={inputsHandler}
+              value={inputField.description} 
+              />
             </Form.Group>
 
             <Button variant="info" onClick={submitButton}>Submit</Button>
