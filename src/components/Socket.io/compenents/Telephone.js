@@ -55,6 +55,7 @@ function Telephone({ socket }) {
     setfixedFlag(true);
     console.log('fixedFlag', fixedFlag);
     console.log('0000000', fixedArray);
+    console.log('cases',cases);
   }
 
   useEffect(() => {
@@ -77,6 +78,8 @@ function Telephone({ socket }) {
     // })
   }, [socket]);
 
+  
+
   let clearAll = () => {
     socket.emit('deleteAll', 'Telephone');
   }
@@ -87,6 +90,8 @@ function Telephone({ socket }) {
     let removed = cases.splice(index, 1);
     setCases([...cases]);
   }
+
+  
 
   return (
     <div>
