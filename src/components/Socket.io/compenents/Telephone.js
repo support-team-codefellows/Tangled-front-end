@@ -26,6 +26,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
+import {useSelector} from "react-redux"
+import axios from 'axios';
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>oOo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< //
 
@@ -41,6 +43,11 @@ function Telephone({ socket }) {
   // let [newArray,setNewArray]=useState([])
   let [fixedFlag, setfixedFlag] = useState(false);
   const [fixedArray, setFixedArray] = React.useState([]);
+  // import {store} from "../../"
+
+  const data = useSelector(state => state)
+  console.log('data',data);
+
 
   let newCasesHandler = () => {
     setSum(0);
@@ -58,31 +65,23 @@ function Telephone({ socket }) {
     console.log('cases',cases);
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      socket.emit('getAll', 'Telephone')
-    }, 100);
+  useEffect( () => {
 
+    async function name() {
 
-    socket.on("telephoneIssue", (data) => {
-
-      setCases(oldArray => [data, ...oldArray]);
-
-      setCounter(oldArray => [data, ...oldArray]);
-      setSum(sum++);
-    });
-
-    // socket.on("processingStatus", (data) => {
-    //   socket.emit("claimCase", data);
-    //   console.log(data);
-    // })
-  }, [socket]);
+      let telephoneData= await axios.get('http://localhost:3500/telephoneTicket')
+      console.log('telephoneData',telephoneData);
+    }
+    
+    name()
+  
+  }, [data]);
 
   
 
-  let clearAll = () => {
-    socket.emit('deleteAll', 'Telephone');
-  }
+  // let clearAll = () => {
+  //   socket.emit('deleteAll', 'Telephone');
+  // }
 
   const fixedIssues = (value, index) => {
     socket.emit('telephoneDeleteCase', value);
