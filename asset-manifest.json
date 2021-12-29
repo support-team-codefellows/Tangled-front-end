@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/Tangled-front-end/admin/dashboard/static/css/main.2feb5a9e.chunk.css",
-    "main.js": "/Tangled-front-end/admin/dashboard/static/js/main.f5828c25.chunk.js",
-    "main.js.map": "/Tangled-front-end/admin/dashboard/static/js/main.f5828c25.chunk.js.map",
-    "runtime-main.js": "/Tangled-front-end/admin/dashboard/static/js/runtime-main.856e596a.js",
-    "runtime-main.js.map": "/Tangled-front-end/admin/dashboard/static/js/runtime-main.856e596a.js.map",
-    "static/css/2.4708e5f1.chunk.css": "/Tangled-front-end/admin/dashboard/static/css/2.4708e5f1.chunk.css",
-    "static/js/2.e3290834.chunk.js": "/Tangled-front-end/admin/dashboard/static/js/2.e3290834.chunk.js",
-    "static/js/2.e3290834.chunk.js.map": "/Tangled-front-end/admin/dashboard/static/js/2.e3290834.chunk.js.map",
-    "index.html": "/Tangled-front-end/admin/dashboard/index.html",
-    "static/css/2.4708e5f1.chunk.css.map": "/Tangled-front-end/admin/dashboard/static/css/2.4708e5f1.chunk.css.map",
-    "static/css/main.2feb5a9e.chunk.css.map": "/Tangled-front-end/admin/dashboard/static/css/main.2feb5a9e.chunk.css.map",
-    "static/js/2.e3290834.chunk.js.LICENSE.txt": "/Tangled-front-end/admin/dashboard/static/js/2.e3290834.chunk.js.LICENSE.txt",
-    "static/js/main.f5828c25.chunk.js.LICENSE.txt": "/Tangled-front-end/admin/dashboard/static/js/main.f5828c25.chunk.js.LICENSE.txt",
-    "static/media/marc.e8607287.jpg": "/Tangled-front-end/admin/dashboard/static/media/marc.e8607287.jpg",
-    "static/media/sidebar-1.0a127c58.jpg": "/Tangled-front-end/admin/dashboard/static/media/sidebar-1.0a127c58.jpg",
-    "static/media/sidebar-2.22f68ba5.jpg": "/Tangled-front-end/admin/dashboard/static/media/sidebar-2.22f68ba5.jpg",
-    "static/media/sidebar-3.e667b13e.jpg": "/Tangled-front-end/admin/dashboard/static/media/sidebar-3.e667b13e.jpg",
-    "static/media/sidebar-4.dd4b5581.jpg": "/Tangled-front-end/admin/dashboard/static/media/sidebar-4.dd4b5581.jpg"
+    "main.css": "/admin/dashboard/static/css/main.2feb5a9e.chunk.css",
+    "main.js": "/admin/dashboard/static/js/main.527ad506.chunk.js",
+    "main.js.map": "/admin/dashboard/static/js/main.527ad506.chunk.js.map",
+    "runtime-main.js": "/admin/dashboard/static/js/runtime-main.931ed297.js",
+    "runtime-main.js.map": "/admin/dashboard/static/js/runtime-main.931ed297.js.map",
+    "static/css/2.4708e5f1.chunk.css": "/admin/dashboard/static/css/2.4708e5f1.chunk.css",
+    "static/js/2.e3290834.chunk.js": "/admin/dashboard/static/js/2.e3290834.chunk.js",
+    "static/js/2.e3290834.chunk.js.map": "/admin/dashboard/static/js/2.e3290834.chunk.js.map",
+    "index.html": "/admin/dashboard/index.html",
+    "static/css/2.4708e5f1.chunk.css.map": "/admin/dashboard/static/css/2.4708e5f1.chunk.css.map",
+    "static/css/main.2feb5a9e.chunk.css.map": "/admin/dashboard/static/css/main.2feb5a9e.chunk.css.map",
+    "static/js/2.e3290834.chunk.js.LICENSE.txt": "/admin/dashboard/static/js/2.e3290834.chunk.js.LICENSE.txt",
+    "static/js/main.527ad506.chunk.js.LICENSE.txt": "/admin/dashboard/static/js/main.527ad506.chunk.js.LICENSE.txt",
+    "static/media/marc.e8607287.jpg": "/admin/dashboard/static/media/marc.e8607287.jpg",
+    "static/media/sidebar-1.0a127c58.jpg": "/admin/dashboard/static/media/sidebar-1.0a127c58.jpg",
+    "static/media/sidebar-2.22f68ba5.jpg": "/admin/dashboard/static/media/sidebar-2.22f68ba5.jpg",
+    "static/media/sidebar-3.e667b13e.jpg": "/admin/dashboard/static/media/sidebar-3.e667b13e.jpg",
+    "static/media/sidebar-4.dd4b5581.jpg": "/admin/dashboard/static/media/sidebar-4.dd4b5581.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.856e596a.js",
+    "static/js/runtime-main.931ed297.js",
     "static/css/2.4708e5f1.chunk.css",
     "static/js/2.e3290834.chunk.js",
     "static/css/main.2feb5a9e.chunk.css",
-    "static/js/main.f5828c25.chunk.js"
+    "static/js/main.527ad506.chunk.js"
   ]
 }
