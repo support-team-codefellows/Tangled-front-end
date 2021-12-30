@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Form, Button} from 'react-bootstrap';
 import { io } from 'socket.io-client';
 import { Notification, toaster, Drawer } from 'rsuite';
+import {useDispatch} from "react-redux"
 import "rsuite/dist/rsuite.min.css";
 import Telephone from 'components/Socket.io/compenents/Telephone';
 import Card from "components/Card/Card.js";
@@ -11,6 +12,8 @@ import CardFooter from "components/Card/CardFooter.js";
 import CardBody from "components/Card/CardBody.js";
 import GridItem from "components/Grid/GridItem";
 import Dashboard from 'views/Dashboard/Dashboard';
+import axios from "axios"
+import store from '../../../store';
 
 function Customer() {
   const [socket, setSocket] = useState(null);
@@ -19,15 +22,11 @@ function Customer() {
   const [telephoneClaimed, setTelephoneClaimed] = useState(false);
   const [onSiteClaimed, setOnSiteClaimed] = useState(false);
   const [onSiteResponse, setOnSiteResponse] = useState({});
+ 
 
-  useEffect(() => {
+ 
 
-    
-    const newSocket = io(`https://tangled-backend.herokuapp.com/`, { transports: ['websocket', 'polling', 'flashsocket'] });
-
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, [setSocket]);
+ 
 
   const [inputField, setInputField] = useState({
     customerName: '',
@@ -42,22 +41,46 @@ function Customer() {
     setInputField({ ...inputField, [e.target.name]: e.target.value })
   }
 
-  const submitButton = () => {
+  const submitButton = async() => {
     console.log('inputField', inputField);
-    socket.emit('customerFrontEvent', inputField);
+   
+
+    if (inputField.department==="Telephone") {
+
+      await axios.post('http://localhost:3500/telephoneTicket',inputField)
+
+     
+      store.dispatch({
+        type:"TELEPHONETICKET"
+      })
+
+      
+
+
+      
+    }
+
+    if (inputField.department==="OnSite") {
+
+      await axios.post('/onSiteTicket',inputField)
+
+    }
+
     setShowNotification(true)
     setTimeout(() => { setShowNotification(false) }, 2000);
   }
 
-  if (socket) {
-    // socket.on('claimCase', (payload) => {
-    //     setTelephoneClaimed(true);
-    //   });
-    socket.on('serverOnSiteResponse', (appointment) => {
-      setOnSiteClaimed(true);
-      setOnSiteResponse(appointment);
-    });
-  }
+
+
+  // if (socket) {
+  //   // socket.on('claimCase', (payload) => {
+  //   //     setTelephoneClaimed(true);
+  //   //   });
+  //   socket.on('serverOnSiteResponse', (appointment) => {
+  //     setOnSiteClaimed(true);
+  //     setOnSiteResponse(appointment);
+  //   });
+  // }
 
   return (
 

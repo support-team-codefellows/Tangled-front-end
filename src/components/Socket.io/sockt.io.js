@@ -23,8 +23,8 @@ function SocketApp() {
          
       { socket ? (
         <div className="chat-container">
-          <Telephone socket={socket} />
-          <OnSite socket={socket} />
+          <Telephone  />
+          <OnSite  />
         </div>
       ) : (
         <div>Not Connected</div>

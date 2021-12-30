@@ -200,4 +200,4 @@ class Telephone2 extends Component {
     }
 }
 
-export default Telephone2
+// export default Telephone2

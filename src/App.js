@@ -2,7 +2,9 @@
 
 import Header from './components/Navbars/Navbar.js';
 import Footer from './components/Footer/Footer.js';
-import React, { useState, useEffect } from 'react';
+import * as React from 'react'
+import  { useState, useEffect } from 'react';
+
 import Admin from "layouts/Admin.js";
 import RTL from "layouts/RTL.js";
 import ChatForm from "./components/Socket.io/compenents/chat/ChatForm"
@@ -15,6 +17,10 @@ import Customer from './components/Socket.io/compenents/customer';
 import io from 'socket.io-client'
 import Telephone from './components/Socket.io/compenents/Telephone';
 import SocketApp from 'components/Socket.io/sockt.io';
+// import * as React from 'react'
+
+// 1. import `ChakraProvider` component
+
 
 export default function app() {
   const [logged, setLogged] = useState(false);
@@ -40,8 +46,10 @@ export default function app() {
   }, [setSocket]);
 
   return (
-    <>
+   
+   
       <Router>
+         {/* <ChakraProvider> */}
         <Switch>
           {socket? 
           <>
@@ -53,7 +61,11 @@ export default function app() {
           </> : <p>Hi</p>}
           <Redirect from="/" to="/admin/dashboard" />
         </Switch>
+        {/* </ChakraProvider> */}
       </Router>
-      </>
+    
+    
+      
+      
   );
 }

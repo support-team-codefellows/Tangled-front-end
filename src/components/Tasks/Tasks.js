@@ -34,6 +34,7 @@ export default function Tasks(props) {
     setChecked(newChecked);
   };
   const { tasksIndexes, tasks, rtlActive } = props;
+  console.log(tasksIndexes);
   const tableCellClasses = classnames(classes.tableCell, {
     [classes.tableCellRTL]: rtlActive,
   });

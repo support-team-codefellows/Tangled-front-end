@@ -5,7 +5,8 @@
   "private": false,
   "main": "public/index.html",
   "dependencies": {
-    "@emotion/react": "^11.7.0",
+    "@chakra-ui/react": "^1.7.3",
+    "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "4.11.4",
     "@material-ui/icons": "4.11.2",
@@ -14,6 +15,7 @@
     "axios": "^0.24.0",
     "chartist": "0.10.1",
     "classnames": "2.3.1",
+    "framer-motion": "^4.1.17",
     "history": "5.0.0",
     "nodemon": "^2.0.15",
     "perfect-scrollbar": "1.5.1",
@@ -37,7 +39,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-
   },
   "repository": {
     "type": "git",

@@ -52,25 +52,25 @@ function OnSite({ socket }) {
     setfixedFlag(true);
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      socket.emit('getAll', 'OnSite')
-    }, 100);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     socket.emit('getAll', 'OnSite')
+  //   }, 100);
 
-    socket.on("onSiteIssue", (data) => {
-      setCases(oldArray => [data, ...oldArray]);
-      setCounter(oldArray => [data, ...oldArray]);
-      setSum(sum++);
-    });
+  //   socket.on("onSiteIssue", (data) => {
+  //     setCases(oldArray => [data, ...oldArray]);
+  //     setCounter(oldArray => [data, ...oldArray]);
+  //     setSum(sum++);
+  //   });
 
-    socket.on("processingStatus", (data) => {
-      socket.emit("claimedUserCase", "hi");
-    })
-  }, [socket]);
+  //   socket.on("processingStatus", (data) => {
+  //     socket.emit("claimedUserCase", "hi");
+  //   })
+  // }, [socket]);
 
-  let clearAll = () => {
-    socket.emit('deleteAll', 'OnSite');
-  }
+  // let clearAll = () => {
+  //   socket.emit('deleteAll', 'OnSite');
+  // }
 
   const [appointmentField, setAppointmentField] = useState({
     day: '',
@@ -83,9 +83,9 @@ function OnSite({ socket }) {
   }
 
   const submitButton = (claimedCase) => {
-    socket.emit('onSiteResponse', appointmentField);
+    // socket.emit('onSiteResponse', appointmentField);
     console.log(claimedCase);
-    socket.emit('onSiteDeleteCase', claimedCase);
+    // socket.emit('onSiteDeleteCase', claimedCase);
     setFixedArray((oldValue) => [...oldValue, claimedCase]);
     let removed = cases.splice(cases.indexOf(claimedCase), 1);
     setCases([...cases]);

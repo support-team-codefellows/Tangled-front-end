@@ -7,11 +7,13 @@ const initalState = {
     profileImage: '',
     modal: false,
     modalFlag: false,
-    userCount: 0,   
+    userCount: 0, 
+    customerTelephoneTicket: false
 }
 
 
 function appState(state = initalState, action) {
+    
     switch (action.type) {
         case 'SET_USER':
             return {
@@ -33,16 +35,27 @@ function appState(state = initalState, action) {
                 ...state,
                 user: null
             };
-            case 'SET_USER_COUNT':
-                return{
-                    ...state,
-                    userCount: action.payload
+        case 'SET_USER_COUNT':
+           return{
+                 ...state,
+                userCount: action.payload
                 }
+
+        case 'TELEPHONETICKET':
+             console.log('dfdfdfdfdffd');
+             
+          return{
+                  ...state,
+                  customerTelephoneTicket: !state.customerTelephoneTicket
+                  
+                }
+               
+
     }
     return state;
 }
 
-const store = createStore(appState, initalState)
+const store = createStore(appState,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 
 export default store;
